@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:temp_house/presentation/common/data_intent/data_intent.dart';
 
 import '../../../../../resources/assets_manager.dart';
 import '../../../../../resources/routes_manager.dart';
@@ -30,7 +31,7 @@ class HomePageAppBar extends StatelessWidget {
           const SizedBox(width: AppSize.s10),
           Expanded(
             child: Text(
-              '39, Fussels lane',
+              DataIntent.getUser().name,
               style: AppTextStyles.mainAppBarText(context),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,

@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:temp_house/domain/usecase/share_post_usecase.dart';
+import 'package:temp_house/domain/usecase/share_post_usecase.dart';
+import 'package:temp_house/domain/usecase/share_post_usecase.dart';
 
 import '../data/data_source/cache_data_source.dart';
 import '../data/data_source/local_data_source.dart';
@@ -11,6 +16,8 @@ import '../data/network/app_api.dart';
 import '../data/network/app_prefs.dart';
 import '../data/network/assets_loader.dart';
 import '../data/network/dio_factory.dart';
+import '../data/network/firestorage_factory.dart';
+import '../data/network/firestore_factory.dart';
 import '../data/network/network_info.dart';
 import '../data/repository/repository_impl.dart';
 import '../domain/repository/repository.dart';
@@ -29,11 +36,18 @@ Future<void> initAppModule() async {
   // sl.registerLazySingleton<GSheetFactory>(() => GSheetFactoryImpl());
 
   sl.registerLazySingleton<AssetsLoader>(() => AssetsLoaderImpl());
-  var dio = await DioFactory().getDio();
 
+  var dio = await DioFactory().getDio();
   sl.registerLazySingleton<Dio>(() => dio);
+
+  var firestore = await FirestoreFactoryImpl().create();
+  sl.registerLazySingleton<FirebaseFirestore>(() => firestore);
+
+  var fireStorage = await FireStorageFactoryImpl().create();
+  sl.registerLazySingleton<FirebaseStorage>(() => fireStorage);
+
   sl.registerLazySingleton<AppServiceClient>(() => AppServiceClientImpl(sl()));
-  sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<RemoteDataSource>(() => RemoteDataSourceImpl(sl(), sl()));
   sl.registerLazySingleton<RuntimeDataSource>(() => RuntimeDataSourceImpl());
   sl.registerLazySingleton<CacheDataSource>(
       () => CacheDataSourceImpl(sl(), sl()),);
@@ -41,12 +55,12 @@ Future<void> initAppModule() async {
   sl.registerLazySingleton<LocalDataSource>(() => LocalDataSourceImpl(sl()));
 
   sl.registerLazySingleton<Repository>(
-      () => RepositoryImpl(sl(), sl(), sl(), sl(), sl(), sl()));
+      () => RepositoryImpl(sl(), sl()));
 }
 
-// void initSplashScreen() {
-//   if (GetIt.instance.isRegistered<GetOnBoardingFirstTimeUseCase>() == false) {
-//     sl.registerFactory<GetOnBoardingFirstTimeUseCase>(
-//         () => GetOnBoardingFirstTimeUseCase(sl()));
-//   }
-// }
+void initSharePost() {
+  if (GetIt.instance.isRegistered<SharePostUseCase>() == false) {
+    sl.registerFactory<SharePostUseCase>(
+        () => SharePostUseCase(sl()));
+  }
+}

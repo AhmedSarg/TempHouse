@@ -108,6 +108,16 @@ class AppValidators {
     }
   }
 
+  static String? validatePrice(String? val) {
+    if (val == null) {
+      return AppStrings.validationsFieldRequired.tr();
+    } else if (val.trim().isEmpty) {
+      return AppStrings.validationsFieldRequired.tr();
+    } else {
+      return null;
+    }
+  }
+
   static String? validateAge(String? val) {
     if (val == null) {
       return AppStrings.validationsFieldRequired.tr();
@@ -137,6 +147,20 @@ class AppValidators {
       return null;
     }
   }
+
+
+  static String? validateText(String? val) {
+    if (val == null) {
+      return AppStrings.validationsFieldRequired.tr();
+    } else if (val.isEmpty) {
+      return AppStrings.validationsFieldRequired.tr();
+    } else if (val.length < 4 ) {
+      return AppStrings.validationsTitle.tr();
+    } else {
+      return null;
+    }
+  }
+
 //
 // static String? validateUniversity(String? val) {
 //   if (val == null) {

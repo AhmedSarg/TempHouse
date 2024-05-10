@@ -17,11 +17,11 @@ void baseListener(BuildContext context, BaseStates state) {
     ]);
   } else if (state is LoadingState) {
     BaseWidgets.showPopUpDialog(context, [
-      // BaseWidgets.buildAnimatedImage(LottieAssets.loading),
+      BaseWidgets.buildAnimatedImage(LottieAssets.loading),
     ]);
   } else if (state is ErrorState) {
     BaseWidgets.showPopUpDialog(context, [
-      // BaseWidgets.buildAnimatedImage(LottieAssets.error),
+      BaseWidgets.buildAnimatedImage(LottieAssets.error),
       BaseWidgets.buildMessage(context, state.failure.message),
       BaseWidgets.buildButton(
           displayType: state.displayType,
@@ -35,7 +35,7 @@ void baseListener(BuildContext context, BaseStates state) {
     //do nothing
   } else if (state is EmptyState) {
     BaseWidgets.showPopUpDialog(context, [
-      // BaseWidgets.buildAnimatedImage(LottieAssets.error),
+      BaseWidgets.buildAnimatedImage(LottieAssets.error),
       BaseWidgets.buildMessage(context, AppStrings.emptyContent.tr()),
       BaseWidgets.buildButton(
           displayType: state.displayType,

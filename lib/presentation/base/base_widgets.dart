@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:temp_house/presentation/resources/color_manager.dart';
 import '../resources/text_styles.dart';
 import '../resources/values_manager.dart';
 import 'base_states.dart';
@@ -47,6 +48,7 @@ class BaseWidgets {
         builder: (context) => AlertDialog(
               actions: actions,
               actionsAlignment: MainAxisAlignment.spaceEvenly,
+              backgroundColor: ColorManager.primary,
               content: Padding(
                 padding: const EdgeInsets.all(AppPadding.p20),
                 child: SingleChildScrollView(

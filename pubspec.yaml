@@ -52,7 +52,22 @@ dependencies:
   gsheets:
   animated_splash_screen:
   flutter_svg:
-
+  carousel_slider:
+  image_picker:
+  country_flags:
+  country_picker:
+  google_maps_flutter:
+  firebase_core:
+  cloud_firestore:
+  firebase_auth:
+  firebase_storage:
+  cached_network_image:
+  geolocator:
+  geocoding:
+  awesome_dialog:
+  uuid:
+  intl_phone_field:
+  permission_handler: ^11.3.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

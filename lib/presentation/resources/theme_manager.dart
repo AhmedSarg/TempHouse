@@ -12,7 +12,7 @@ ThemeData getApplicationTheme() {
     primaryColorDark: ColorManager.primary,
     disabledColor: ColorManager.darkGrey,
     // ripple effect color
-    splashColor: ColorManager.primary,
+    splashColor: ColorManager.transparent,
     scaffoldBackgroundColor: ColorManager.primary,
     // app bar theme
     appBarTheme: const AppBarTheme(

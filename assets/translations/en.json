@@ -2,6 +2,7 @@
   "noRouteFound": "No Route Found",
   "retryAgain": "Retry Again",
   "success": "Success",
+  "submit": "Submit  ",
 
   "splashScreenTitle": "Temp house",
   "splashScreenSubTitle": "Very Easy To Book a Home",
@@ -69,6 +70,143 @@
   "registerScreenGoogle": "Sign up with google",
   "registerScreenFacebook": "Sign up with facebook",
 
+  "searchTextHint": "Search your Home...",
+  "clearText": "Clear All",
+  "lastText": "Last Search",
+  "popularStartedTextRow": "Popular Homes",
+  "popularEndedTextRow": "see all",
+
+  "optionsMenuAddAddToFavorite": "Add to favorite",
+  "optionsMenuFeedback": "Send feedback",
+
+  "feedBackHeader": "Home feedback",
+  "feedBackSubHead": "Please rate your experience below",
+  "feedBackStarRate": "stars",
+  "feedBackTextHint": "My feedback!!",
+  "feedBackBotton": "Submit feedback",
+  "homeRated": "You have already rated this home",
+  "homeRatederror": "An error occurred.\n Please try again later.",
+  "ok": "Ok",
+
+  "chatNoMessages": "No Message",
+  "chatNoUsers": "No users found.",
+  "chatMessageFieldHint": "Type your message...",
+  "chatSendImage": "\uD83D\uDCF7 Photo",
+  "paymentCash": "Cash",
+
+
+
+  "homeDetailsDescription": "Description",
+  "homepostedAt": "posted at",
+  "NoHomesAvailable": "No homes available Currently",
+  "homeDetailsRating": "Rating",
+  "priceHome": "EGP/",
+  "bedHome": "bed",
+  "bathroomHome": "bathroom",
+  "numberOfbeds": "Number Of Bed",
+  "numberOfbathroom": "Number Of Bedrooms",
+  "wifiServices": "Amenities (Wifi)",
+  "warningProces": "Warning",
+  "errorProces": "Error",
+  "succesProces": "Success",
+
+  "conditionBad"     : "Bad",
+  "conditionGood"    : "Good",
+  "conditionVeryGood": "VeryGood",
+  "categoryDaily"  : "Daily",
+  "categoryMonthly": "Montly",
+  "categoryYearly" : "Yearly",
+  "wifiServicesNo": "No",
+  "wifiServicesYes": "Yes",
+
+  "wifiHome": "wifi",
+  "nearByHome": "Nearby Homes",
+  "allNearbyTitle": "All Nearby Homes",
+  "addItem": "add home to favourite list",
+  "removeItem": "remove home from favourite list",
+  "addphotos": "Add Photos",
+
+  "priceRange": "Price Range (EGP)",
+  "coin": "EGP",
+  "minNum": "No Min .",
+  "maxNum": "No Max .",
+  "clear": "Clear",
+  "confirm": "Confirm",
+
+
+  "publishHomeAppBarTextRow": "New listing ",
+  "addPhotos": "Add Photos ",
+  "addPhotosDescription1": "Photos :",
+  "addPhotosDescription2": "/10 . Choose your listing’s main photo first.",
+  "title": "Title",
+  "price": "Price",
+  "area": "Area in metres",
+  "meter": "M",
+  "call": "Call",
+  "phoneNumber": "Phone number",
+  "seeLocation": "See location",
+  "locationSelection": "Choices your home location",
+
+  "category": "Category",
+  "condition": "Condition",
+  "description": "Description",
+  "location": "Location",
+  "publish": "Publish",
+  "homeDetails": "Home details",
+
+  "tapBarSearchAll": "All",
+  "tapBarSearchPrice": "Price",
+  "tapBarSearchLatest": "Latest",
+  "tapBarSearchPopular": "Most popular",
+  "tapBarSearchCheapest": "Cheapest",
+
+  "favouraiteScreenTitle": "Favourite List",
+
+
+  "profileAppBar": "My Account",
+  "profileSetting": "Settings",
+  "profileLanguage": "Language ",
+  "profileLanguageEnglish": "English",
+  "profileLanguageArabic": "العربية",
+  "profileCountry": "Country",
+  "profileMeasurement": "Measurement System",
+  "profilePropertyFinder": "Property Finder",
+  "profileAbout": "About",
+  "personalInfoTitle": "personal Info",
+  "personalInfoSubTitleInformation": "Infomation",
+  "personalInfoSubTitleInformationFirstHint": "First Name",
+  "personalInfoSubTitleInformationSecondHint": "Second Name",
+  "personalInfoSubTitleContact": "Contact",
+  "personalInfoSubTitleContactHint": "Email",
+  "personalInfoBtn": "Save",
+
+  "paymentScreenTitle" : "Payment Details",
+  "paymentDetailsScreenTitle" : "Add New Card",
+  "paymentNoCard" : "No Card",
+  "paymentCardholder" : "Cardholder’s name *",
+  "paymentCardNumber" : "Card number *",
+  "paymentExpiration" : "Expiration date * ",
+
+  "paymentsaveCardBtn" : "Save Card",
+  "paymentAddCardBtn" : "Add Card",
+
+
+  "rateUsScreenName" : "Rate Us",
+  "needHelpScreenName": "Need Help ?",
+
+  "aboutAppName": "Temp House",
+  "aboutAppVersion": "Versoin 1.0.0",
+  "aboutAppDescription": "Description",
+  "aboutAppDescriptionDetails" : "Stress-free rental starts here! Find your perfect place, apply online & manage everything - all with Temp House.",
+  "aboutDev" : "Develpers",
+  "aboutDevNames" : "developer 1\ndeveloper 2",
+  "aboutContact" : "Contact",
+  "aboutContactEmail" : "developer@gmail.com",
+  "aboutContactWebSite" :"www.website.com",
+  "logOut" :"log out",
+
+
+
   "notificationsScreenTitle": "Notifications",
   "notificationsScreenUnread": "Unread",
   "notificationsScreenAll": "All",
@@ -116,5 +254,6 @@
   "validationsNumbersMustEqual11Digit": "field must contain more than 11 digits",
   "validationsPasswordSpecifications": "- must be more than or equal to 8 characters\n- must contain letters and numbers",
   "validationsEnterTheSamePassword": "please enter the same password",
-  "validationsUsername": "use letters and numbers only"
+  "validationsUsername": "use letters and numbers only",
+  "validationsTitle": "Enter an appropriate title "
 }

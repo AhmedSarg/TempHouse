@@ -46,6 +46,8 @@ class ResetPassword extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
               child: MainTextField(
+                maxLines: 1,
+
                 controller: viewModel.getForgotPasswordEmailController,
                 focusNode: FocusNode(),
                 nextFocus: passwordFocusNode,
@@ -63,6 +65,8 @@ class ResetPassword extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
               child: MainTextField(
+                maxLines: 1,
+
                 controller: viewModel.getResetPasswordController,
                 focusNode: passwordFocusNode,
                 nextFocus: confirmPasswordFocusNode,
@@ -80,6 +84,8 @@ class ResetPassword extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppPadding.p20),
               child: MainTextField(
+                maxLines: 1,
+
                 controller: viewModel.getResetPasswordConfirmController,
                 focusNode: confirmPasswordFocusNode,
                 isObscured: true,

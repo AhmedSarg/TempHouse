@@ -15,9 +15,6 @@ class CacheDataSourceImpl implements CacheDataSource {
 
   CacheDataSourceImpl(this._preferences, this._dateNTP);
 
-  // @override
-  // Future<void> setOnBoardingFirstTime() async {
-  //   await _preferences.setBool(_onBoardingFirstTimeKey, true);
-  // }
+
 
 }

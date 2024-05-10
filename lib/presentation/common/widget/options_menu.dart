@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
@@ -7,7 +8,7 @@ import '../../resources/text_styles.dart';
 import '../../resources/values_manager.dart';
 
 class OptionMenuItem {
-  final IconData icon;
+  final SvgPicture icon;
   final String text;
   final Function onPressed;
 
@@ -19,25 +20,18 @@ class OptionMenuItem {
 }
 
 class OptionMenu extends StatelessWidget {
-  OptionMenu({super.key});
+  const OptionMenu({
+    super.key,
+    required this.items, required this.mainIcon,
+  });
+  final IconData mainIcon;
 
-  final List<OptionMenuItem> menu = [
-    OptionMenuItem(
-      text: AppStrings.optionsMenuMarkAllRead.tr(),
-      icon: Icons.check,
-      onPressed: () {},
-    ),
-    OptionMenuItem(
-      text: AppStrings.optionsMenuRemoveAll.tr(),
-      icon: Icons.delete,
-      onPressed: () {},
-    ),
-  ];
+  final List<OptionMenuItem> items;
 
   List<PopupMenuEntry> buildOptions(
-      BuildContext context,
-      List<OptionMenuItem> items,
-      ) {
+    BuildContext context,
+    List<OptionMenuItem> items,
+  ) {
     List<PopupMenuEntry> list = [];
     for (OptionMenuItem item in items) {
       list.add(
@@ -47,15 +41,11 @@ class OptionMenu extends StatelessWidget {
           },
           child: Row(
             children: [
-              Icon(
-                item.icon,
-                color: ColorManager.primary,
-              ),
+              item.icon,
               const SizedBox(width: AppSize.s10),
               Text(
                 item.text,
-                style:
-                AppTextStyles.optionsMenuOptionTextStyle(context),
+                style: AppTextStyles.optionsMenuOptionTextStyle(context),
               ),
             ],
           ),
@@ -74,14 +64,14 @@ class OptionMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon: const Icon(Icons.more_horiz_outlined),
+      icon:  Icon(mainIcon, size: AppSize.s18,),
       color: ColorManager.offwhite,
       iconColor: ColorManager.white,
       offset: const Offset(-AppSize.s50, AppSize.s0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSize.s10),
       ),
-      itemBuilder: (context) => buildOptions(context, menu),
+      itemBuilder: (context) => buildOptions(context, items),
     );
   }
 }

@@ -40,6 +40,8 @@ class LoginBody extends StatelessWidget {
           child: Column(
             children: [
               MainTextField(
+                maxLines: 1,
+
                 controller: viewModel.getEmailController,
                 focusNode: emailFocusNode,
                 nextFocus: passwordFocusNode,
@@ -51,6 +53,7 @@ class LoginBody extends StatelessWidget {
               ),
               const SizedBox(height: AppSize.s20),
               MainTextField(
+                maxLines: 1,
                 controller: viewModel.getPasswordController,
                 focusNode: passwordFocusNode,
                 validation: AppValidators.validateLogin,

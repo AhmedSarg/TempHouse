@@ -3,6 +3,8 @@ class AppStrings {
   static const noRouteFound = "noRouteFound";
   static const retryAgain = "retryAgain";
   static const success = "success";
+  static const ok = "ok";
+  static const submit = "submit";
 
   ///splash screen
   static const splashScreenTitle = "splashScreenTitle";
@@ -91,23 +93,172 @@ class AppStrings {
   static const homeNavBarFavourite = "homeNavBarFavourite";
   static const homeNavBarNotifications = "homeNavBarNotifications";
   static const homeNavBarProfile = "homeNavBarProfile";
+  static const NoHomesAvailable = "NoHomesAvailable";
+
+  ///home screen
+  static const searchTextHint = "searchTextHint";
+  static const lastText= "lastText";
+  static const clearText = "clearText";
+
+  ///home details
+  static const homeDetailsDescription = "homeDetailsDescription";
+  static const homeDetailsPrice = "homeDetailsPrice";
+  static const homeDetailsRating = "homeDetailsRating";
+  static const homeDetailsAddToCard = "homeDetailsAddToCard";
+  static const homepostedAt = "homepostedAt";
+  static const call = "call";
+  static const seeLocation = "seeLocation";
+
+
+  static const popularStartedTextRow = "popularStartedTextRow";
+  static const popularEndedTextRow = "popularEndedTextRow";
+  static const priceHome = "priceHome";
+  static const meter = "meter";
+  static const bedHome = "bedHome";
+  static const bathroomHome = "bathroomHome";
+  static const wifiHome = "wifiHome";
+  static const nearByHome = "nearByHome";
+  static const allNearbyTitle = "allNearbyTitle";
+/// profile screen
+  static const profileAppBar = "profileAppBar";
+  static const profileSetting = "profileSetting";
+  static const profileLanguage = "profileLanguage";
+  static const profileLanguageEnglish = "profileLanguageEnglish";
+  static const profileLanguageArabic = "profileLanguageArabic";
+  static const profileCountry = "profileCountry";
+  static const profileMeasurement = "profileMeasurement";
+  static const profilePropertyFinder = "profilePropertyFinder";
+  static const profileAbout = "profileAbout";
+
+
+  //Snackbar
+  static const addItem = "addItem";
+  static const removeItem = "removeItem";
+
+// publish home post
+  static const publishHomeAppBarTextRow = "publishHomeAppBarTextRow";
+  static const addPhotos  = "addPhotos";
+  static const addPhotosDescription1 = "addPhotosDescription1";
+  static const addPhotosDescription2 = "addPhotosDescription2";
+  static const title = "title";
+  static const price = "price";
+  static const area = "area";
+  static const category = "category";
+  static const numberOfbeds = "numberOfbeds";
+  static const wifiServices = "wifiServices";
+  static const numberOfbathroom = "numberOfbathroom";
+  static const condition = "condition";
+  static const description = "description";
+  static const phoneNumber = "phoneNumber";
+  static const location = "location";
+  static const publish = "publish";
+  static const locationSelection = "locationSelection";
+  static const String homeDetails = "homeDetails";
+
+
+  static const categoryDaily = "categoryDaily";
+  static const categoryMonthly= "categoryMonthly";
+  static const categoryYearly = "categoryYearly";
+
+  static const conditionBad = "conditionBad";
+  static const conditionGood= "conditionGood";
+  static const conditionVeryGood = "conditionVeryGood";
+
+  static const wifiServicesNo= "wifiServicesNo";
+  static const wifiServicesYes = "wifiServicesYes";
+
+  static const warningProces = "warning";
+  static const errorProces = "errorProces";
+  static const succesProces = "succesProces";
+
+// search
+
+  static const priceRange = "priceRange";
+  static const coin = "coin";
+  static const minNum = "minNum";
+  static const maxNum = "maxNum";
+  static const clear = "clear";
+  static const confirm = "confirm";
+
+  static const tapBarSearchAll = "tapBarSearchAll";
+  static const tapBarSearchPrice = "tapBarSearchPrice";
+  static const tapBarSearchLatest = "tapBarSearchLatest";
+  static const tapBarSearchPopular = "tapBarSearchPopular";
+  static const tapBarSearchCheapest = "tapBarSearchCheapest";
+
+
+  static const personalInfoTitle = "personalInfoTitle";
+  static const personalInfoSubTitleInformation = "personalInfoSubTitleInformation";
+  static const personalInfoSubTitleInformationFirstHint = "personalInfoSubTitleInformationFirstHint";
+  static const personalInfoSubTitleInformationSecondHint = "personalInfoSubTitleInformationSecondHint";
+  static const personalInfoSubTitleContact = "personalInfoSubTitleContact";
+  static const personalInfoSubTitleContactHint = "personalInfoSubTitleContactHint";
+  static const personalInfoBtn = "personalInfoBtn";
 
   ///notifications screen
   static const notificationsScreenTitle = "notificationsScreenTitle";
   static const notificationsScreenUnread = "notificationsScreenUnread";
   static const notificationsScreenAll = "notificationsScreenAll";
 
+
+  /// favourite screen
+  static const favouraiteScreenTitle = "favouraiteScreenTitle";
+
   ///chats screen
   static const chatsScreenTitle = "chatsScreenTitle";
   static const chatsScreenUnread = "chatsScreenUnread";
   static const chatsScreenAll = "chatsScreenAll";
+  static const chatScreenInputHint = "chatScreenInputHint";
+  static const chatNoMessages = "chatNoMessages";
+  static const chatNoUsers = "chatNoMessages";
+  static const chatSendImage = "chatSendImage";
 
   ///options menu
   static const optionsMenuMarkAllRead = "optionsMenuMarkAllRead";
   static const optionsMenuRemoveAll = "optionsMenuRemoveAll";
+  static const optionsMenuAddAddToFavorite = "optionsMenuAddAddToFavorite";
+  static const optionsMenuFeedback = "optionsMenuFeedback";
 
-  ///chat screen
-  static const chatScreenInputHint = "chatScreenInputHint";
+///feed back
+  static const feedBackHeader = "feedBackHeader";
+  static const feedBackSubHead = "feedBackSubHead";
+  static const feedBackStarRate = "feedBackStarRate";
+  static const feedBackTextHint = "feedBackTextHint";
+  static const feedBackBotton = "feedBackBotton";
+  static const homeRated = "homeRated";
+  static const homeRatederror = "homeRatederror";
+
+
+
+  static const rateUsScreenName = "rateUsScreenName";
+  static const needHelpScreenName = "needHelpScreenName";
+  static const paymentDetailsScreen = "paymentDetailsScreen";
+  static const logOut = "logOut";
+
+
+  // about app screen
+  static const aboutAppItem = "aboutAppItem";
+  static const aboutAppName = "aboutAppName";
+  static const aboutAppVersion = "aboutAppVersion";
+  static const aboutAppDescription = "aboutAppDescription";
+  static const aboutAppDescriptionDetails = "aboutAppDescriptionDetails";
+  static const aboutDev = "aboutDev";
+  static const aboutDevNames = "aboutDevNames";
+  static const aboutContact = "aboutContact";
+  static const aboutContactEmail = "aboutContactEmail";
+  static const aboutContactWebSite = "aboutContactWebSite";
+
+  ///payment screen
+  static const paymentScreenTitle = "paymentScreenTitle";
+  static const paymentCash = "paymentCash";
+  static const paymentDetailsScreenTitle = "paymentDetailsScreenTitle";
+  static const paymentNoCard = "paymentDetailsScreenTitle";
+  static const paymentCardholder = "paymentCardholder";
+  static const paymentCardNumber = "paymentCardNumber";
+  static const paymentExpiration = "paymentExpiration";
+
+  static const paymentsaveCardBtn = "paymentsaveCardBtn";
+  static const paymentAddCardBtn = "paymentAddCardBtn";
 
   ///error handler
   static const String badRequestError = "badRequestError";
@@ -136,6 +287,7 @@ class AppStrings {
   static const validationsValidEmail = "validationsValidEmail";
   static const validationsNumbersOnly = "validationsNumbersOnly";
   static const validationsUsername = "validationsUsername";
+  static const validationsTitle = "validationsTitle";
   static const validationsNumbersMustEqual14Digit =
       "validationsNumbersMustEqual14Digit";
   static const validationsNumbersMustEqual11Digit =

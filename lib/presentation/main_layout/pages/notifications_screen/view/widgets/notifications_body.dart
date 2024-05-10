@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../common/widget/options_menu.dart';
 import '../../../../../resources/assets_manager.dart';
@@ -25,7 +26,20 @@ class NotificationsBody extends StatelessWidget {
               style: AppTextStyles.notificationsScreenSectionHeaderTextStyle(
                   context),
             ),
-            OptionMenu(),
+            OptionMenu(
+              items: [
+                OptionMenuItem(
+                  text: AppStrings.optionsMenuMarkAllRead.tr(),
+                  icon: SvgPicture.asset(SVGAssets.markAsRead),
+                  onPressed: () {},
+                ),
+                OptionMenuItem(
+                  text: AppStrings.optionsMenuRemoveAll.tr(),
+                  icon: SvgPicture.asset(SVGAssets.delete),
+                  onPressed: () {},
+                ),
+              ], mainIcon: Icons.more_horiz_outlined,
+            ),
           ],
         ),
         const SizedBox(height: AppSize.s10),

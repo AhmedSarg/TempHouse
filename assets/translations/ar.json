@@ -2,6 +2,7 @@
   "noRouteFound": "المسار غير موجود",
   "retryAgain": "حاول مرة أخري",
   "success": "تم بنجاح",
+  "submit": "إرسال ",
 
   "splashScreenTitle": "Temp house",
   "splashScreenSubTitle": "أحجز منزلك بسهولة",
@@ -69,6 +70,127 @@
   "registerScreenGoogle": "أنشاء الحساب بجوجل",
   "registerScreenFacebook": "أنشاء الحساب بفيسبوك",
 
+  "searchTextHint": "ابحث عن منزلك...",
+  "clearText": "مسح الكل",
+  "lastText": "عمليات البحث الأخير",
+  "popularStartedTextRow": "المنازل المشهورة",
+  "popularEndedTextRow": "عرض الكل",
+
+
+  "chatNoMessages": "لا توجد رسائل",
+  "chatNoUsers": "لم يتم العثور على أي مستخدمين.",
+  "chatMessageFieldHint": "اكتب رسالتك...",
+  "chatSendImage": "صورة\uD83D\uDCF7",
+
+  "homepostedAt": "تم النشر في",
+
+  "priceHome": "جنيه مصري/",
+  "bedHome": "سرير",
+  "bathroomHome": "حمام",
+  "wifiHome": "واي فاي",
+  "nearByHome": "المنازل القريبه",
+  "homeDetails": "تفاصيل المنزل",
+
+  "optionsMenuAddAddToFavorite": "الإضافة إلى المفضلة",
+  "optionsMenuFeedback": "إرسال ملاحظاتك",
+
+  "feedBackHeader": "ملاحظات رئيسية",
+  "feedBackSubHead": "يُرجى تقييم تجربتك في الأسفل",
+  "feedBackStarRate": "نجمة",
+  "feedBackTextHint": "ملاحظاتي!!!",
+  "feedBackBotton": "إرسال ملاحظاتك",
+  "NoHomesAvailable": "لا توجد منازل متاحة حاليًا",
+
+  "publishHomeAppBarTextRow": "قائمة جديدة ",
+  "addPhotosDescription": "الصور : 0/10 . اختر الصورة الرئيسية لبطاقة بياناتك أولاً.",
+  "title": "العنوان",
+  "price": "السعر",
+  "area": "المساحة بالمتر",
+  "meter": "متر",
+  "category": "الفئة",
+  "phoneNumber": "رقم الهاتف",
+  "condition":"الحالة",
+  "description": "الوصف",
+  "numberOfbeds": "عدد السرير",
+  "numberOfbathroom": "عدد غرف النوم",
+  "location": "الموقع",
+  "publish": "نشر",
+  "addPhotos": "إضف الصور",
+  "paymentCash": "الدفع نقداً",
+  "call": "اتصال",
+  "seeLocation": "شاهد الموقع",
+  "locationSelection": "اختر موقع منزلك",
+
+  "conditionBad"     : "سيئ",
+  "conditionGood"    : "جيد",
+  "conditionVeryGood": "جيد للغاية",
+  "categoryDaily"  : "يومياً",
+  "categoryMonthly": "شهرياً",
+  "categoryYearly" : "سنويًا",
+  "wifiServicesNo": "لا يوجد",
+  "wifiServicesYes": "يوجد",
+  "wifiServices": "وسائل الراحة (واي فاي)",
+  "warningProces": "تحذير",
+  "errorProces": "خطأ في النشر",
+  "succesProces": "عملية ناجحة",
+
+  "tapBarSearchAll": "الكل",
+  "tapBarSearchPrice": "السعر",
+  "tapBarSearchLatest": "الأحدث",
+  "tapBarSearchPopular": "الأكثر شعبية",
+  "tapBarSearchCheapest": "الأرخص",
+
+  "priceRange": "نطاق السعر (جنيه مصري)",
+  "coin": "جنيه مصري",
+  "minNum": "No Min .",
+  "maxNum": "No Max .",
+  "clear": "مسح",
+  "confirm": "تأكد",
+
+  "addItem": "إضافة المنزل إلى قائمة المفضلة",
+  "removeItem": "إزالة المنزل من القائمة المفضلة",
+
+  "favouraiteScreenTitle": "قائمة المفضلين",
+
+
+  "profileAppBar": "حسابي",
+  "profileSetting": "الإعدادات",
+  "profileLanguage": "اللغة ",
+  "profileLanguageEnglish": "English",
+  "profileLanguageArabic": "العربية",
+  "profileCountry": "الدولة",
+  "profileMeasurement": "نظام القياس ",
+  "profilePropertyFinder": "الباحث عن العقارات",
+  "profileAbout": "حول التطبيق",
+  "personalInfoBtn": "حفظ",
+  "logOut" :"تسجيل الخروج",
+
+  "personalInfoTitle": "المعلومات الشخصيه",
+  "personalInfoSubTitleInformation": "المعلومات",
+  "personalInfoSubTitleInformationFirstHint": "الاسم الأول",
+  "personalInfoSubTitleInformationSecondHint": "الاسم الثاني",
+  "personalInfoSubTitleContact": "الاتصال",
+  "personalInfoSubTitleContactHint": "البريد إلكتروني",
+  "rateUsScreenName" : "تقييمنا",
+  "needHelpScreenName": "تحتاج إلى مساعدة ؟",
+  "aboutAppItem" : "حول التطبيق",
+  "homeRated": "لقد قمت بتقييم هذا المنزل بالفعل",
+  "homeRatederror": "حدث خطأ.\n يرجى المحاولة مرة أخرى لاحقاً.",
+  "ok": "حسناً",
+
+  "homeDetailsDescription": "الوصف",
+  "homeDetailsRating": "التقيم",
+  "aboutAppName": "Temp House",
+  "aboutAppVersion": "الإصدار 1.0.0 ",
+  "aboutAppDescription": "الوصف",
+
+  "aboutAppDescriptionDetails" : "الإيجار الخالي من التوتر يبدأ هنا! اعثر على مكانك المثالي، وتقدم بطلبك عبر الإنترنت وقم بإدارة كل شيء - كل ذلك باستخدام Temp House.",
+  "aboutDev" : "المطورين",
+  "aboutDevNames" : "developer 1\ndeveloper 2",
+  "aboutContact" : "الاتصال",
+  "aboutContactEmail" : "developer@gmail.com",
+  "aboutContactWebSite" :"www.website.com",
+
   "notificationsScreenTitle": "الأشعارات",
   "notificationsScreenUnread": "غير مقروء",
   "notificationsScreenAll": "الكل",
@@ -86,6 +208,18 @@
 
   "optionsMenuMarkAllRead": "حدد الكل كمقروء",
   "optionsMenuRemoveAll": "أزالة الكل",
+
+
+  "paymentScreenTitle" : "تفاصيل الدفع",
+  "paymentDetailsScreenTitle" : "إضافة بطاقة جديدة",
+
+  "paymentNoCard" : "لا يوجد بطاقة",
+  "paymentCardholder" : "اسم حامل البطاقة *",
+  "paymentCardNumber" : "رقم البطاقة*",
+  "paymentExpiration" : "تاريخ انتهاء الصلاحية* ",
+  "paymentsaveCardBtn" : "حفظ البطاقة",
+  "paymentAddCardBtn" : "أضف البطاقة",
+
 
   "badRequestError": "طلب خاطئ",
   "noContent": "لا يوجد محتوي",
@@ -116,5 +250,7 @@
   "validationsNumbersMustEqual11Digit": "يرجي كتابة 11 رقما",
   "validationsPasswordSpecifications": "- يجب أن يتكون من 8 احرف او اكتر\n- يجب أن يحتوي علي حروف و أرقام",
   "validationsEnterTheSamePassword": "يرجي كتابة نفس كلمة المرور",
-  "validationsUsername": "استعمل حروف و أرقام فقط"
+  "validationsUsername": "استعمل حروف و أرقام فقط",
+  "validationsTitle": "ادخل عنوان مناسب"
+
 }
