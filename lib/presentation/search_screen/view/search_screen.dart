@@ -1,27 +1,27 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temp_house/presentation/base/base_states.dart';
+import 'package:temp_house/presentation/base/cubit_builder.dart';
+import 'package:temp_house/presentation/base/cubit_listener.dart';
+import 'package:temp_house/presentation/main_layout/viewmodel/main_layout_viewmodel.dart';
 import 'package:temp_house/presentation/resources/color_manager.dart';
-import 'package:temp_house/presentation/resources/routes_manager.dart';
 import 'package:temp_house/presentation/resources/values_manager.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/all_search.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/cheapest_price.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/latest_search.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/modal_bottom_sheet_botton.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/price_search.dart';
-import '../../resources/assets_manager.dart';
+
 import '../../resources/constants_manager.dart';
 import '../../resources/strings_manager.dart';
-import 'package:temp_house/presentation/common/widget/main_seach_field.dart';
 import '../../resources/text_styles.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen>
@@ -30,7 +30,6 @@ class _SearchScreenState extends State<SearchScreen>
   final TextEditingController _searchController = TextEditingController();
   double _minValue = AppConstants.initialMinPrice;
   double _maxValue = AppConstants.initialMaxPrice;
-  late Stream<QuerySnapshot> _searchStream;
 
   @override
   void initState() {
@@ -42,8 +41,6 @@ class _SearchScreenState extends State<SearchScreen>
   void dispose() {
     _searchController.dispose();
     _tabController.dispose();
-    _searchStream = FirebaseFirestore.instance.collection('Homes').snapshots();
-
     super.dispose();
   }
 
@@ -52,11 +49,16 @@ class _SearchScreenState extends State<SearchScreen>
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0,
-        toolbarHeight: 10,
+        elevation: AppSize.s0,
+        toolbarHeight: AppSize.s30,
         bottom: TabBar(
           isScrollable: true,
+          tabAlignment: TabAlignment.start,
           indicatorColor: ColorManager.grey,
+          labelPadding: const EdgeInsets.symmetric(
+            vertical: AppPadding.p15,
+            horizontal: AppPadding.p15,
+          ),
           indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(AppSize.s8),
             border: Border.all(
@@ -72,77 +74,91 @@ class _SearchScreenState extends State<SearchScreen>
               ),
             ],
           ),
+          indicatorPadding:
+              const EdgeInsets.symmetric(vertical: AppPadding.p15),
           controller: _tabController,
           tabs: [
             Tab(
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                 child: Text(AppStrings.tapBarSearchAll.tr(),
-                    style: AppTextStyles.unSelectedsearchTabTextStyle(context)),
+                    style: AppTextStyles.unselectedSearchTabTextStyle(context)),
               ),
             ),
             Tab(
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                 child: Text(AppStrings.tapBarSearchLatest.tr(),
-                    style: AppTextStyles.unSelectedsearchTabTextStyle(context)),
+                    style: AppTextStyles.unselectedSearchTabTextStyle(context)),
               ),
             ),
             Tab(
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                 child: Text(AppStrings.tapBarSearchPopular.tr(),
-                    style: AppTextStyles.unSelectedsearchTabTextStyle(context)),
+                    style: AppTextStyles.unselectedSearchTabTextStyle(context)),
               ),
             ),
             GestureDetector(
               onTap: () {
-_tabController.index ==3?
-                _showBottomSheet(context):_tabController.index ==3;
+                _tabController.index == 3
+                    ? _showBottomSheet(context)
+                    : _tabController.index == 3;
               },
               child: Tab(
                 child: Padding(
                   padding:
-                  const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                      const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                   child: Text(AppStrings.tapBarSearchPrice.tr(),
-                      style: AppTextStyles.unSelectedsearchTabTextStyle(context)),
+                      style:
+                          AppTextStyles.unselectedSearchTabTextStyle(context)),
                 ),
               ),
             ),
             Tab(
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
                 child: Text(AppStrings.tapBarSearchCheapest.tr(),
-                    style: AppTextStyles.unSelectedsearchTabTextStyle(context)),
+                    style: AppTextStyles.unselectedSearchTabTextStyle(context)),
               ),
             ),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: AppSize.s10),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                const AllSearch(),
-                const LeatestSearch(),
-                const LeatestSearch(),
-                PriceSearch(
-                  minPrice: _minValue,
-                  maxPrice: _maxValue,
-                ),
-                const CheapestSearch(),
-              ],
-            ),
-          ),
-        ],
+      body: BlocProvider(
+        create: (context) => MainLayoutViewModel()..start(),
+        child: BlocConsumer<MainLayoutViewModel, BaseStates>(
+          listener: (context, state) {
+            baseListener(context, state);
+          },
+          builder: (context, state) {
+            return baseBuilder(context, state, buildContent());
+          },
+        ),
       ),
+    );
+  }
+
+  Widget buildContent() {
+    return Column(
+      children: [
+        const SizedBox(height: AppSize.s10),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              const AllSearch(),
+              const LeatestSearch(),
+              const LeatestSearch(),
+              PriceSearch(
+                minPrice: _minValue,
+                maxPrice: _maxValue,
+              ),
+              const CheapestSearch(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -207,7 +223,6 @@ _tabController.index ==3?
                               context)),
                     ],
                   ),
-
                   const SizedBox(height: AppSize.s30),
                   RangeSlider(
                     activeColor: ColorManager.cobaltRed,
@@ -239,7 +254,7 @@ _tabController.index ==3?
                         decoration: BoxDecoration(
                             color: ColorManager.grey,
                             borderRadius:
-                            BorderRadius.circular(AppPadding.p16)),
+                                BorderRadius.circular(AppPadding.p16)),
                       ),
                       modalBottomSheetBotton(
                         btName: AppStrings.maxNum.tr(),
@@ -252,7 +267,6 @@ _tabController.index ==3?
                   const SizedBox(
                     height: AppSize.s15,
                   ),
-
                   const Divider(
                     color: ColorManager.grey,
                   ),
@@ -273,7 +287,6 @@ _tabController.index ==3?
                           });
                         },
                       ),
-
                       modalBottomSheetBotton(
                         btName: AppStrings.confirm.tr(),
                         backGroundColor: ColorManager.cobaltBlue,
@@ -297,4 +310,3 @@ _tabController.index ==3?
     setState(() {});
   }
 }
-

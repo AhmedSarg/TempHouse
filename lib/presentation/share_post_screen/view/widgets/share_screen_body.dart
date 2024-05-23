@@ -1,16 +1,17 @@
 import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:lottie/lottie.dart';
 import 'package:temp_house/presentation/share_post_screen/view/widgets/share_text_field.dart';
 
 import '../../../common/validators/validators.dart';
 import '../../../common/widget/main_button.dart';
 import '../../../common/widget/register_field_dialog.dart';
 import '../../../map_screen/view/map_screen_share.dart';
-import '../../../resources/color_manager.dart';
-import '../../../resources/routes_manager.dart';
+import '../../../resources/assets_manager.dart';
 import '../../../resources/strings_manager.dart';
 import '../../../resources/text_styles.dart';
 import '../../../resources/values_manager.dart';
@@ -57,7 +58,6 @@ class SharePostScreenBody extends StatelessWidget {
   final FocusNode bathroomFocusNode;
 
   final FocusNode areaFocusNode;
-
 
   static final categoryList = [
     AppStrings.categoryDaily.tr(),
@@ -270,14 +270,53 @@ class SharePostScreenBody extends StatelessWidget {
                 focusNode: locationFocusNode,
                 // readOnly: true,
                 prefixIcon: Icons.location_on_rounded,
-                surffixIconFunc: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => GoogleMapScreenShare(viewModel: viewModel),
-                    ),
-                  );
-
+                surffixIconFunc: () async {
+                  if (await checkPermission(context)) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            GoogleMapScreenShare(viewModel: viewModel),
+                      ),
+                    );
+                  } else {
+                    await requestPermission(context);
+                    if (await checkPermission(context)) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              GoogleMapScreenShare(viewModel: viewModel),
+                        ),
+                      );
+                    } else {
+                      if (await Geolocator.isLocationServiceEnabled()) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Lottie.asset(LottieAssets.error, repeat: false),
+                                const Text(
+                                  'Please enable Location Services and Location Permissions',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () async {
+                                  await Geolocator.openAppSettings();
+                                },
+                                child: const Text('Open Settings'),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                    }
+                  }
                 },
                 readOnly: true,
                 nextFocus: locationFocusNode,
@@ -292,7 +331,11 @@ class SharePostScreenBody extends StatelessWidget {
               child: MainButton(
                 text: AppStrings.publish.tr(),
                 textStyle: AppTextStyles.sharePostBtnTextStyle(context),
-                onTap: publish,
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    viewModel.sharePost();
+                  }
+                },
               ),
             ),
           ],
@@ -301,10 +344,38 @@ class SharePostScreenBody extends StatelessWidget {
     );
   }
 
-  void publish() {
-    print(viewModel.getImages.length);
-    if (formKey.currentState!.validate()) {
-      viewModel.sharePost();
+  Future<bool> checkPermission(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Lottie.asset(LottieAssets.loading),
+      ),
+    );
+    LocationPermission locationPermission = await Geolocator.checkPermission();
+    bool locationServices = await Geolocator.isLocationServiceEnabled();
+    print(locationPermission);
+    print(locationServices);
+    if (locationPermission == LocationPermission.deniedForever ||
+        locationPermission == LocationPermission.denied ||
+        !locationServices) {
+      Navigator.pop(context);
+      return false;
+    } else {
+      Navigator.pop(context);
+      return true;
+    }
+  }
+
+  requestPermission(BuildContext context) async {
+    bool services = await Geolocator.isLocationServiceEnabled();
+    if (!services) {
+      await Geolocator.openLocationSettings();
+    }
+    LocationPermission locationPermission = await Geolocator.checkPermission();
+    if (locationPermission == LocationPermission.deniedForever) {
+      await Geolocator.openAppSettings();
+    } else if (locationPermission == LocationPermission.denied) {
+      await Geolocator.requestPermission();
     }
   }
 }

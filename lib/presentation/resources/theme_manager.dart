@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+
 import 'color_manager.dart';
 import 'values_manager.dart';
-import 'package:flutter/material.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
-
     useMaterial3: true,
     // main colors
     primaryColor: ColorManager.primary,
@@ -23,9 +23,8 @@ ThemeData getApplicationTheme() {
       iconTheme: IconThemeData(color: ColorManager.white), //add this line here
     ),
     dialogTheme: const DialogTheme(
-      backgroundColor: ColorManager.white,
-      surfaceTintColor: ColorManager.transparent
-    ),
+        backgroundColor: ColorManager.white,
+        surfaceTintColor: ColorManager.transparent),
 
     dividerTheme: const DividerThemeData(
       color: ColorManager.black,
@@ -41,8 +40,6 @@ ThemeData getApplicationTheme() {
       splashColor: ColorManager.lightGrey,
     ),
 
-
-
     // elevated button them
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -53,6 +50,7 @@ ThemeData getApplicationTheme() {
         ),
       ),
     ),
+
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         backgroundColor: ColorManager.transparent,

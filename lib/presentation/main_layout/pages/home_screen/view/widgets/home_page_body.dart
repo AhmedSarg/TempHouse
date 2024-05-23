@@ -1,12 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:temp_house/presentation/main_layout/pages/home_screen/view/widgets/popular_home_widget.dart';
 import 'package:temp_house/presentation/main_layout/pages/home_screen/view/widgets/popular_row.dart';
 import 'package:temp_house/presentation/resources/routes_manager.dart';
 
-import '../../../../../common/widget/main_seach_field.dart';
-import '../../../../../resources/assets_manager.dart';
 import '../../../../../resources/color_manager.dart';
 import '../../../../../resources/strings_manager.dart';
 import '../../../../../resources/text_styles.dart';
@@ -34,7 +31,7 @@ class HomePageBody extends StatelessWidget {
             },
             child: Container(
               height: AppSize.s50,
-width: MediaQuery.of(context).size.width*.80,
+              width: MediaQuery.of(context).size.width * .80,
               decoration: BoxDecoration(
                   color: ColorManager.offwhite.withOpacity(.12),
                   borderRadius: BorderRadius.circular(16)),
@@ -73,9 +70,7 @@ width: MediaQuery.of(context).size.width*.80,
             rowEndedcolor: ColorManager.tertiary.withOpacity(.4),
             routeName: Routes.allPopularHomesRoute,
           ),
-          const SizedBox(
-            height: AppSize.s20,
-          ),
+          const SizedBox(height: AppSize.s20),
           const PopularHomeWidget()
         ],
       ),

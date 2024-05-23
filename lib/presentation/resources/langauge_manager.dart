@@ -14,7 +14,7 @@ class AppLanguages {
   static const Locale fallBackLocal = Locale('en');
   static String translationsPath = 'assets/translations';
 
-  static void init(BuildContext context){
+  static void init(BuildContext context) {
     appLanguage = getCurrentLang(context);
   }
 
@@ -26,6 +26,18 @@ class AppLanguages {
       appLanguage = Languages.en;
       context.setLocale(locals.first);
     }
+    await engine.performReassemble();
+  }
+
+  static void setLanguageArabic(BuildContext context) async {
+    context.setLocale(locals.last);
+    appLanguage = Languages.ar;
+    await engine.performReassemble();
+  }
+
+  static void setLanguageEnglish(BuildContext context) async {
+    context.setLocale(locals.first);
+    appLanguage = Languages.en;
     await engine.performReassemble();
   }
 

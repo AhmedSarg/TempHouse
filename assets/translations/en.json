@@ -4,7 +4,7 @@
   "success": "Success",
   "submit": "Submit  ",
 
-  "splashScreenTitle": "Temp house",
+  "splashScreenTitle": "Beyout",
   "splashScreenSubTitle": "Very Easy To Book a Home",
 
   "onBoardingScreenTitle1": "Booking Home Anywhere Is Easier",
@@ -12,7 +12,7 @@
   "onBoardingScreenNextButton": "Next",
   "onBoardingScreenGetStartedButton": "Get Started",
 
-  "selectionScreenTitle": "Temp house",
+  "selectionScreenTitle": "Beyout",
   "selectionScreenSubTitle": "Choose your role in our app",
   "selectionScreenOwner": "Owner",
   "selectionScreenTenant": "Tenant",
@@ -109,6 +109,7 @@
   "warningProces": "Warning",
   "errorProces": "Error",
   "succesProces": "Success",
+  "emptyData":"No Homes",
 
   "conditionBad"     : "Bad",
   "conditionGood"    : "Good",
@@ -161,6 +162,7 @@
   "tapBarSearchCheapest": "Cheapest",
 
   "favouraiteScreenTitle": "Favourite List",
+  "favouraiteScreenEmpty":"NO Favourite homes",
 
 
   "profileAppBar": "My Account",
@@ -176,8 +178,8 @@
   "personalInfoSubTitleInformation": "Infomation",
   "personalInfoSubTitleInformationFirstHint": "First Name",
   "personalInfoSubTitleInformationSecondHint": "Second Name",
-  "personalInfoSubTitleContact": "Contact",
-  "personalInfoSubTitleContactHint": "Email",
+  "personalInfoEmailHint": "Email",
+  "personalInfoPhoneNumberHint": "Phone Number",
   "personalInfoBtn": "Save",
 
   "paymentScreenTitle" : "Payment Details",
@@ -187,17 +189,17 @@
   "paymentCardNumber" : "Card number *",
   "paymentExpiration" : "Expiration date * ",
 
-  "paymentsaveCardBtn" : "Save Card",
-  "paymentAddCardBtn" : "Add Card",
+  "paymentSaveCardButton" : "Save Card",
+  "paymentAddCardButton" : "Add Card",
 
 
   "rateUsScreenName" : "Rate Us",
   "needHelpScreenName": "Need Help ?",
 
-  "aboutAppName": "Temp House",
+  "aboutAppName": "Beyout",
   "aboutAppVersion": "Versoin 1.0.0",
   "aboutAppDescription": "Description",
-  "aboutAppDescriptionDetails" : "Stress-free rental starts here! Find your perfect place, apply online & manage everything - all with Temp House.",
+  "aboutAppDescriptionDetails" : "Stress-free rental starts here! Find your perfect place, apply online & manage everything - all with Beyout.",
   "aboutDev" : "Develpers",
   "aboutDevNames" : "developer 1\ndeveloper 2",
   "aboutContact" : "Contact",
@@ -225,6 +227,12 @@
   "optionsMenuMarkAllRead": "Mark All as Read",
   "optionsMenuRemoveAll": "Remove All",
 
+  "needHelpScreenNavBar": "Need Help?",
+  "needHelpScreenTitle": "How can we assist you?",
+  "needHelpScreenSubtitle": "Please describe the issue or assistance you need",
+  "needHelpScreenHint": "Type your message here...",
+  "needHelpScreenButton": "Submit",
+
   "badRequestError": "Bad Request Error",
   "noContent": "No Content",
   "forbiddenError": "Forbidden Error",
@@ -241,6 +249,11 @@
   "noInternetError": "No Internet Error",
   "emptyContent": "Empty Content",
   "intentError": "Intent Error",
+  "emailAlreadyExistsError": "Account Already Exists With The Same Email",
+  "phoneNumberAlreadyExistsError": "Account Already Exists With The Same Phone Number",
+  "emailAndPhoneNumberAlreadyExistsError": "Account Already Exists With The Same Email And Phone Number",
+  "emailLoginFailedError": "Incorrect Email or Password",
+  "invalidVerificationCodeError": "Verification Code is Incorrect Please Try Again",
 
   "areYouSure": "Are You Sure",
   "sure": "Sure",
@@ -250,10 +263,13 @@
   "validationsFieldLengthMoreThan6": "length must be more than 6 characters",
   "validationsValidEmail": "enter a valid email",
   "validationsNumbersOnly": "enter numbers only",
+  "validationsNumbersMustEqual16Digit": "field must contain more than 16 digits",
   "validationsNumbersMustEqual14Digit": "field must contain more than 14 digits",
   "validationsNumbersMustEqual11Digit": "field must contain more than 11 digits",
+  "validationsNumbersMustEqual4Digit": "field must contain more than 4 digits",
   "validationsPasswordSpecifications": "- must be more than or equal to 8 characters\n- must contain letters and numbers",
   "validationsEnterTheSamePassword": "please enter the same password",
+  "validationsInvalidCardExpirationDate": "Card Expiration Date is Invalid",
   "validationsUsername": "use letters and numbers only",
   "validationsTitle": "Enter an appropriate title "
 }

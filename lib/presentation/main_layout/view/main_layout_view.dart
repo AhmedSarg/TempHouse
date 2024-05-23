@@ -1,90 +1,28 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:temp_house/presentation/main_layout/pages/favourite_screen/view/favourite_page.dart';
-import 'package:temp_house/presentation/resources/strings_manager.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temp_house/presentation/base/base_states.dart';
+import 'package:temp_house/presentation/base/cubit_builder.dart';
+import 'package:temp_house/presentation/base/cubit_listener.dart';
+import 'package:temp_house/presentation/main_layout/view/main_layout_body.dart';
+import 'package:temp_house/presentation/main_layout/viewmodel/main_layout_viewmodel.dart';
 
-import '../../resources/text_styles.dart';
-import '../../under_construction_screen/view/under_construction_view.dart';
-import '../pages/home_screen/view/home_page.dart';
-import '../pages/notifications_screen/view/notifications_view.dart';
-import '../pages/profile_screen/view/ProfilePage.dart';
-
-class MainLayoutScreen extends StatefulWidget {
+class MainLayoutScreen extends StatelessWidget {
   const MainLayoutScreen({super.key});
 
   @override
-  State<MainLayoutScreen> createState() => _MainLayoutScreenState();
-}
-
-class _MainLayoutScreenState extends State<MainLayoutScreen> {
-  int selectedTabIndex = 0;
-  final GlobalKey<ScaffoldState> _key = GlobalKey();
-  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: PopScope(
-        canPop: false,
-        onPopInvoked: (_) {
-          if (selectedTabIndex == 0) {
-            if (!_key.currentState!.isDrawerOpen) {
-              SystemNavigator.pop();
-            }
-          } else {
-            setState(() {
-              selectedTabIndex = 0;
-            });
-          }
-        },
-        child: Scaffold(
-          key: _key,
-          bottomNavigationBar: BottomNavigationBar(
-            showUnselectedLabels: false,
-            enableFeedback: true,
-            onTap: (index) {
-              setState(() {
-                selectedTabIndex = index;
-              });
-            },
-            selectedLabelStyle: AppTextStyles.mainNavBarLabel(context),
-            currentIndex: selectedTabIndex,
-            items: [
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).primaryColor,
-                icon: const Icon(Icons.home_outlined),
-                activeIcon: const Icon(Icons.home),
-                label: AppStrings.homeNavBarHome.tr(),
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).primaryColor,
-                icon: const Icon(Icons.favorite_border),
-                activeIcon: const Icon(Icons.favorite),
-                label: AppStrings.homeNavBarFavourite.tr(),
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).primaryColor,
-                icon: const Icon(Icons.notifications_outlined),
-                activeIcon: const Icon(Icons.notifications),
-                label: AppStrings.homeNavBarNotifications.tr(),
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).primaryColor,
-                icon: const Icon(Icons.person_outline_rounded),
-                activeIcon: const Icon(Icons.person_rounded),
-                label: AppStrings.homeNavBarProfile.tr(),
-              ),
-            ],
-          ),
-          body: tabs[selectedTabIndex],
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => MainLayoutViewModel()..start(),
+        child: BlocConsumer<MainLayoutViewModel, BaseStates>(
+          listener: (context, state) {
+            baseListener(context, state);
+          },
+          builder: (context, state) {
+            return baseBuilder(context, state, const MainLayoutBody());
+          },
         ),
       ),
     );
   }
-
-  List<Widget> tabs = [
-     HomeScreen(),
-    const FavouriteScreen(),
-    const NotificationsScreen(),
-    const ProfileScreen()
-  ];
 }

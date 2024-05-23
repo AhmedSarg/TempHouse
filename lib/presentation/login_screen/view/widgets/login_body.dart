@@ -41,7 +41,6 @@ class LoginBody extends StatelessWidget {
             children: [
               MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getEmailController,
                 focusNode: emailFocusNode,
                 nextFocus: passwordFocusNode,
@@ -69,7 +68,8 @@ class LoginBody extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                      viewModel.getForgotPasswordEmailController.text = viewModel.getEmailController.text;
+                      viewModel.getForgotPasswordEmailController.text =
+                          viewModel.getEmailController.text;
                       showModalBottomSheet(
                         isScrollControlled: true,
                         context: context,
@@ -112,11 +112,7 @@ class LoginBody extends StatelessWidget {
                   text: AppStrings.loginScreenButton.tr(),
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        Routes.mainLayoutRoute,
-                        ModalRoute.withName('/'),
-                      );
+                      viewModel.login();
                     }
                   },
                   textStyle: AppTextStyles.authButtonTextStyle(context),

@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import '../../../../../resources/color_manager.dart';
 import '../../../../../resources/langauge_manager.dart';
@@ -18,7 +18,8 @@ class LanguageSelectionModal {
     );
   }
 
-  Widget _buildLanguageSelectionModal(BuildContext context, Function(String) onSelect) {
+  Widget _buildLanguageSelectionModal(
+      BuildContext context, Function(String) onSelect) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppPadding.p22),
@@ -38,7 +39,7 @@ class LanguageSelectionModal {
           ),
           Text(
             AppStrings.profileLanguage.tr(),
-            style: AppTextStyles.profileSettingTextStyle(),
+            style: AppTextStyles.profileSettingTextStyle(context),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
@@ -46,16 +47,17 @@ class LanguageSelectionModal {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    await _saveLanguageSelection(AppStrings.profileLanguageEnglish.tr());
+                    await _saveLanguageSelection(
+                        AppStrings.profileLanguageEnglish.tr());
 
-                    AppLanguages.toggleLocal(context);
+                    AppLanguages.setLanguageEnglish(context);
 
                     onSelect(AppStrings.profileLanguageEnglish.tr());
                     Navigator.pop(context);
                   },
                   child: Text(
                     AppStrings.profileLanguageEnglish.tr(),
-                    style: AppTextStyles.profileSettingInfoTextStyle(),
+                    style: AppTextStyles.profileSettingInfoTextStyle(context),
                   ),
                 ),
               ],
@@ -67,15 +69,17 @@ class LanguageSelectionModal {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    await _saveLanguageSelection(AppStrings.profileLanguageArabic.tr());
-                    AppLanguages.toggleLocal(context);
+                    await _saveLanguageSelection(
+                      AppStrings.profileLanguageArabic.tr(),
+                    );
+                    AppLanguages.setLanguageArabic(context);
 
                     onSelect(AppStrings.profileLanguageArabic.tr());
                     Navigator.pop(context);
                   },
                   child: Text(
                     AppStrings.profileLanguageArabic.tr(),
-                    style: AppTextStyles.profileSettingInfoTextStyle(),
+                    style: AppTextStyles.profileSettingInfoTextStyle(context),
                   ),
                 ),
               ],

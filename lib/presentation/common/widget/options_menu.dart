@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../resources/color_manager.dart';
-import '../../resources/strings_manager.dart';
 import '../../resources/text_styles.dart';
 import '../../resources/values_manager.dart';
 
@@ -22,18 +20,19 @@ class OptionMenuItem {
 class OptionMenu extends StatelessWidget {
   const OptionMenu({
     super.key,
-    required this.items, required this.mainIcon,
+    required this.items,
+    required this.mainIcon,
   });
   final IconData mainIcon;
 
-  final List<OptionMenuItem> items;
+  final List<OptionMenuItem?> items;
 
   List<PopupMenuEntry> buildOptions(
     BuildContext context,
-    List<OptionMenuItem> items,
+    List<OptionMenuItem?> items,
   ) {
     List<PopupMenuEntry> list = [];
-    for (OptionMenuItem item in items) {
+    for (OptionMenuItem item in items.nonNulls.toList()) {
       list.add(
         PopupMenuItem(
           onTap: () {
@@ -64,7 +63,10 @@ class OptionMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-      icon:  Icon(mainIcon, size: AppSize.s18,),
+      icon: Icon(
+        mainIcon,
+        size: AppSize.s18,
+      ),
       color: ColorManager.offwhite,
       iconColor: ColorManager.white,
       offset: const Offset(-AppSize.s50, AppSize.s0),

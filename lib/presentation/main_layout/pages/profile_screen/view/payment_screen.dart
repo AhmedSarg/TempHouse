@@ -21,7 +21,7 @@ class PaymentScreen extends StatelessWidget {
         context,
         Text(
           AppStrings.paymentScreenTitle.tr(),
-          style: AppTextStyles.paymentAppBarTextStyle(),
+          style: AppTextStyles.paymentAppBarTextStyle(context),
         ),
       ),
       body: Column(
@@ -54,10 +54,14 @@ class PaymentScreen extends StatelessWidget {
               )
             ],
           ),
-          MainButton(backgroundColor: ColorManager.offwhite,text: AppStrings.paymentAddCardBtn.tr(), textStyle: AppTextStyles.paymentBtnTextStyle(context), onTap: () {
-            Navigator.pushNamed(context, Routes.paymentScreenDetailsRoute);
-          },)
-          
+          MainButton(
+            backgroundColor: ColorManager.offwhite,
+            text: AppStrings.paymentAddCardButton.tr(),
+            textStyle: AppTextStyles.paymentBtnTextStyle(context),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.paymentScreenDetailsRoute);
+            },
+          )
         ],
       ),
     );

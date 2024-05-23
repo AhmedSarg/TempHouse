@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../common/data_intent/data_intent.dart';
 import '../../common/widget/main_app_bar.dart';
 import '../../common/widget/main_circle_processIndicator.dart';
+import '../../resources/assets_manager.dart';
 import '../../resources/color_manager.dart';
 import '../../resources/strings_manager.dart';
 import '../../resources/text_styles.dart';
@@ -50,14 +52,25 @@ class _ChatScreenState extends State<ChatScreen> {
         context,
         Row(
           children: [
-            const CircleAvatar(radius: AppSize.s20, child: Icon(Icons.person)),
+            Container(
+              width: AppSize.s40,
+              height: AppSize.s40,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Image.asset(
+                ImageAssets.unknownUserImage,
+                fit: BoxFit.cover,
+              ),
+            ),
             const SizedBox(
-              width: AppSize.s5,
+              width: AppSize.s10,
             ),
             Expanded(
               child: Text(
                 widget.receiveEmail,
-                style: AppTextStyles.chatScreenUsreNameTextStyle(context),
+                style: AppTextStyles.chatScreenUserNameTextStyle(context),
               ),
             ),
           ],
@@ -89,7 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
           return NoContent(content: AppStrings.chatNoMessages.tr());
         }
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         });
         return ListView.builder(
@@ -97,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
           itemCount: snapshot.data!.docs.length,
           itemBuilder: (context, index) {
             final message =
-            snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                snapshot.data!.docs[index].data() as Map<String, dynamic>;
             final isCurrentUser =
                 message['senderID'] == DataIntent.getUser().uid;
             final messageType = message['type'];
@@ -172,8 +185,8 @@ class _ChatScreenState extends State<ChatScreen> {
             decoration: BoxDecoration(
               color: messageType == 'text'
                   ? (isCurrentUser
-                  ? ColorManager.lightBlue
-                  : ColorManager.lightGrey)
+                      ? ColorManager.lightBlue
+                      : ColorManager.lightGrey)
                   : (isCurrentUser ? Colors.transparent : Colors.transparent),
               borderRadius: BorderRadius.circular(AppSize.s8),
             ),
@@ -203,7 +216,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 Text(
                   _formatTimestamp(timestamp),
-                  style: AppTextStyles.chatTimpTimeTextStyle(context),
+                  style: AppTextStyles.chatTimeTextStyle(context),
                 ),
                 if (isCurrentUser && seen)
                   const Icon(
@@ -247,7 +260,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         decoration: InputDecoration.collapsed(
                           hintText: AppStrings.chatScreenInputHint.tr(),
                           hintStyle:
-                          AppTextStyles.chatTextFieldHintTextStyle(context),
+                              AppTextStyles.chatTextFieldHintTextStyle(context),
                         ),
                       ),
                     ),

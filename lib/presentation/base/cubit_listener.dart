@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 import '../resources/assets_manager.dart';
 import '../resources/strings_manager.dart';
 import 'base_states.dart';
@@ -21,7 +22,7 @@ void baseListener(BuildContext context, BaseStates state) {
     ]);
   } else if (state is ErrorState) {
     BaseWidgets.showPopUpDialog(context, [
-      BaseWidgets.buildAnimatedImage(LottieAssets.error),
+      BaseWidgets.buildAnimatedImage(LottieAssets.error, false),
       BaseWidgets.buildMessage(context, state.failure.message),
       BaseWidgets.buildButton(
           displayType: state.displayType,

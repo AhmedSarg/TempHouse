@@ -1,56 +1,131 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:temp_house/presentation/common/data_intent/data_intent.dart';
+import 'package:lottie/lottie.dart';
+import 'package:temp_house/app/extensions.dart';
 import 'package:temp_house/presentation/main_layout/pages/home_screen/view/widgets/near_by_home_item.dart';
+import 'package:temp_house/presentation/main_layout/viewmodel/main_layout_viewmodel.dart';
+import 'package:temp_house/presentation/resources/assets_manager.dart';
 import 'package:temp_house/presentation/resources/color_manager.dart';
+import 'package:temp_house/presentation/resources/font_manager.dart';
+import 'package:temp_house/presentation/resources/styles_manager.dart';
+import 'package:temp_house/presentation/resources/values_manager.dart';
+
+import '../../../../../../domain/models/domain.dart';
+import '../../../home_details/home_details.dart';
 
 class FavouriteBody extends StatelessWidget {
-  const FavouriteBody({Key? key}) : super(key: key);
+  const FavouriteBody({super.key});
+
+  static late MainLayoutViewModel _viewModel;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection('Favorites')
-          .doc(DataIntent.getUser().uid)
-          .collection('items')
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    _viewModel = MainLayoutViewModel.get(context);
+    return StreamBuilder<List<Future<HomeModel>>>(
+      stream: _viewModel.getFavouriteHomesStream,
+      builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        }
-        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No favorite items available'));
-        }
-
-        return ListView.builder(
-          itemCount: snapshot.data!.docs.length,
-          itemBuilder: (BuildContext context, int index) {
-            DocumentSnapshot doc = snapshot.data!.docs[index];
-            Map<String, dynamic>? data = doc.data() as Map<String, dynamic>?;
-
-            if (data == null) {
-              return const SizedBox();
-            }
-
-            return NearByHomeItem(
-              key: Key(doc.id),
+          return const Center(
+            child: CircularProgressIndicator(
               color: ColorManager.offwhite,
-              title: data['title'] ?? '',
-              price: data['price'] ?? 0,
-              location: data['location'] ?? '',
-              imageUrl: data['imageUrl'] ?? '',
-              numnerofBeds: data['number_of_beds']?.toString() ?? '',
-              wifiServices: data['wifi'] == true ? 'Yes' : 'No',
-              numnerofbathroom: data['number_of_bathrooms']?.toString() ?? '',
-              date: data['category'] ?? '',
-              id: doc.id,
-              description: data['description']  ?? '',
-              coardinaties: data['coordinates'] ?? GeoPoint(0, 0),rating: data['rating']??0,
-              numberOfRatings:data['numberOfRatings']??0,
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Padding(
+            padding: const EdgeInsets.all(AppPadding.p40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Lottie.asset(LottieAssets.error, width: context.width() * .4),
+                const SizedBox(height: AppSize.s10),
+                Text(
+                  'Error: ${snapshot.error}',
+                  textAlign: TextAlign.center,
+                  style: getSemiBoldStyle(
+                    color: ColorManager.black,
+                    fontSize: FontSize.f16,
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Padding(
+            padding: const EdgeInsets.all(AppPadding.p40),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Lottie.asset(
+                    LottieAssets.noContent,
+                    repeat: false,
+                    width: context.width() * .6,
+                  ),
+                  const SizedBox(height: AppSize.s10),
+                  Text(
+                    'You Don\'t Have any Favorite Items',
+                    style: getSemiBoldStyle(
+                      color: ColorManager.black,
+                      fontSize: FontSize.f16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+        return ListView.builder(
+          itemCount: snapshot.data!.length,
+          itemBuilder: (context, index) {
+            return FutureBuilder(
+              future: snapshot.data![index],
+              builder: (context, futureHome) {
+                if (futureHome.hasData) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeDetailsScreen(
+                            home: futureHome.data!,
+                          ),
+                        ),
+                      );
+                    },
+                    child: NearByHomeItem(
+                      home: futureHome.data!,
+                    ),
+                  );
+                } else if (futureHome.hasError) {
+                  return Padding(
+                    padding: const EdgeInsets.all(AppPadding.p40),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Lottie.asset(
+                          LottieAssets.error,
+                          repeat: false,
+                          width: context.width() * .4,
+                        ),
+                        const SizedBox(height: AppSize.s10),
+                        Text(
+                          'Error: ${snapshot.error}',
+                          textAlign: TextAlign.center,
+                          style: getSemiBoldStyle(
+                            color: ColorManager.black,
+                            fontSize: FontSize.f16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorManager.offwhite,
+                    ),
+                  );
+                }
+              },
             );
           },
         );

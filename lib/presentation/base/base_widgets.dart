@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:temp_house/presentation/resources/color_manager.dart';
+
 import '../resources/text_styles.dart';
 import '../resources/values_manager.dart';
 import 'base_states.dart';
@@ -13,11 +15,12 @@ class BaseWidgets {
         height: AppSize.s100, width: AppSize.s100, child: Image.asset(imgPath));
   }
 
-  static Widget buildAnimatedImage(String lottiePath) {
+  static Widget buildAnimatedImage(String lottiePath, [repeat = true]) {
     return SizedBox(
-        height: AppSize.s200,
-        width: AppSize.s200,
-        child: Lottie.asset(lottiePath));
+      height: AppSize.s200,
+      width: AppSize.s200,
+      child: Lottie.asset(lottiePath, repeat: repeat),
+    );
   }
 
   static Widget buildItemsColumn(List<Widget> children) {
@@ -44,32 +47,35 @@ class BaseWidgets {
   static void showPopUpDialog(BuildContext context, List<Widget> children,
       {List<Widget>? actions}) {
     showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              actions: actions,
-              actionsAlignment: MainAxisAlignment.spaceEvenly,
-              backgroundColor: ColorManager.primary,
-              content: Padding(
-                padding: const EdgeInsets.all(AppPadding.p20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: children,
-                  ),
-                ),
-              ),
-            ));
+      context: context,
+      builder: (context) => AlertDialog(
+        actions: actions,
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        backgroundColor: ColorManager.primary,
+        content: Padding(
+          padding: const EdgeInsets.all(AppPadding.p20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: children,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  static Widget buildMessage(BuildContext context, String message) {
+  static Widget buildMessage(BuildContext context, String message,
+      [Color? textColor]) {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p8),
         child: Text(
-          message,
-          style: AppTextStyles.baseStatesMessageTextStyle(context),
+          message.tr(),
+          style: AppTextStyles.baseStatesMessageTextStyle(context, textColor),
+          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -86,19 +92,21 @@ class BaseWidgets {
       child: Padding(
         padding: const EdgeInsets.all(AppPadding.p8),
         child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
-                onPressed: () {
-                  if (displayType == DisplayType.popUpDialog) {
-                    Navigator.of(context).pop();
-                  }
-                  onTap();
-                },
-                child: Text(
-                  title,
-                  style: AppTextStyles.baseStatesElevatedBtnTextStyle(context),
-                ))),
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
+            onPressed: () {
+              if (displayType == DisplayType.popUpDialog) {
+                Navigator.of(context).pop();
+              }
+              onTap();
+            },
+            child: Text(
+              title,
+              style: AppTextStyles.baseStatesElevatedBtnTextStyle(context),
+            ),
+          ),
+        ),
       ),
     );
   }

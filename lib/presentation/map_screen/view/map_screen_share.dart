@@ -1,11 +1,9 @@
-import 'dart:typed_data';
 import 'dart:ui' as ui; // Add this import statement
 
 import 'package:cloud_firestore_platform_interface/src/geo_point.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -24,7 +22,7 @@ class GoogleMapScreenShare extends StatefulWidget {
   const GoogleMapScreenShare({Key? key, this.viewModel}) : super(key: key);
 
   @override
-  _GoogleMapScreenState createState() => _GoogleMapScreenState();
+  State<GoogleMapScreenShare> createState() => _GoogleMapScreenState();
 }
 
 class _GoogleMapScreenState extends State<GoogleMapScreenShare> {
@@ -73,7 +71,8 @@ class _GoogleMapScreenState extends State<GoogleMapScreenShare> {
   Future<Map<String, Object>> _onMapTap(LatLng tappedPoint) async {
     LatLng coordinates = tappedPoint;
 
-    print('Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}');
+    print(
+        'Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}');
 
     String cityName = await _getNearestCity(coordinates);
 
@@ -139,10 +138,9 @@ class _GoogleMapScreenState extends State<GoogleMapScreenShare> {
                       Navigator.pop(context);
                     }
                   },
-
                   child: Text(
                     AppStrings.locationSelection.tr(),
-                    style: AppTextStyles.homegenertalTextStyle(
+                    style: AppTextStyles.homeGeneralTextStyle(
                         context, ColorManager.white, FontSize.f16),
                   ),
                 ),

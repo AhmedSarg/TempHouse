@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 
 import '../../data/network/failure.dart';
@@ -15,33 +13,31 @@ class RegisterUseCase extends BaseUseCase<RegisterUseCaseInput, void> {
   @override
   Future<Either<Failure, void>> call(RegisterUseCaseInput input) async {
     return _repository.register(
-        uuid: input.uuid,
-        username: input.username,
-        email: input.email,
-        phoneNumber: input.phoneNumber,
-        gender: input.gender,
-        job: input.job,
-        salary: input.salary,
-        age: input.age,
-        martialStatus: input.martialStatus,
-        registerType: input.registerType);
+      username: input.username,
+      email: input.email,
+      phoneNumber: input.phoneNumber,
+      gender: input.gender,
+      job: input.job,
+      salary: input.salary,
+      age: input.age,
+      martialStatus: input.martialStatus,
+      userType: input.userType,
+    );
   }
 }
 
 class RegisterUseCaseInput {
-  final String uuid;
   final String username;
   final String email;
   final String phoneNumber;
   final Gender gender;
   final String? job;
-  final num? salary;
-  final num age;
-  final String martialStatus;
-  final RegisterType registerType;
+  final int? salary;
+  final int age;
+  final String? martialStatus;
+  final UserRole userType;
 
   RegisterUseCaseInput({
-    required this.uuid,
     required this.username,
     required this.email,
     required this.phoneNumber,
@@ -50,6 +46,6 @@ class RegisterUseCaseInput {
     required this.salary,
     required this.age,
     required this.martialStatus,
-    required this.registerType,
+    required this.userType,
   });
 }

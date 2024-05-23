@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ColorManager {
   ColorManager._();
   static const Color primary = Color(0xff003366);
-  static const Color additional = Color(0xff003366);
+  static const Color anotherBlue = Color(0xff0C79FE);
   static const Color secondary = Color(0xffC9CCCA);
   static const Color tertiary = Color(0xff17F2CB);
   static const Color grey = Color(0xff6c8196);
@@ -11,15 +11,15 @@ class ColorManager {
   static const Color lightGrey = Color(0xfff5f5f5);
   static const Color darkGrey = Color(0xff00162E);
   static const Color offwhite = Color(0xffFBFFFD);
-  static  Color lightblue = const Color.fromRGBO(0, 0, 0, .33);
+  static Color lightblue = const Color.fromRGBO(0, 0, 0, .33);
   static const Color orange = Colors.orange;
-  static const Color cobaltBlue  = Color(0xff000AFF);
-  static const Color cobaltRed  = Color(0xff843B62);
-  static const Color cobaltPink  = Color(0xffD8A2BF);
-  static const Color movi  = Color(0xff7F56D9);
+  static const Color cobaltBlue = Color(0xff000AFF);
+  static const Color cobaltRed = Color(0xff843B62);
+  static const Color cobaltPink = Color(0xffD8A2BF);
+  static const Color movi = Color(0xff7F56D9);
 
-  static  Color? lightBlue  = Colors.blue[100];
-  static  Color? lightgray  = Colors.grey[300];
+  static Color? lightBlue = Colors.blue[100];
+  static const Color lightGray = Color(0xffe7e7e7);
 
   static const Color black = Color(0xff000000);
   static const Color white = Color(0xFFFFFFFF);

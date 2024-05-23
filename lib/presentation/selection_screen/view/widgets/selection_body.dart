@@ -32,18 +32,16 @@ class SelectionBody extends StatelessWidget {
           ),
           MainButton(
             onTap: () {
-              DataIntent.pushUserRole(UserRole.owner);
+              DataIntent.setUserRole(UserRole.owner);
               Navigator.pushReplacementNamed(context, Routes.loginRoute);
             },
             text: AppStrings.selectionScreenOwner.tr(),
             textStyle: AppTextStyles.selectionOptionTextStyle(context),
           ),
-          const SizedBox(
-            height: AppSize.s30
-          ),
+          const SizedBox(height: AppSize.s30),
           MainButton(
             onTap: () {
-              DataIntent.pushUserRole(UserRole.tenant);
+              DataIntent.setUserRole(UserRole.tenant);
               Navigator.pushNamed(context, Routes.loginRoute);
             },
             text: AppStrings.selectionScreenTenant.tr(),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:temp_house/presentation/common/data_intent/data_intent.dart';
 import 'package:temp_house/presentation/resources/color_manager.dart';
@@ -10,10 +9,13 @@ import 'package:temp_house/presentation/resources/text_styles.dart';
 class RatingDialog extends StatefulWidget {
   final String homeItemId;
 
-  RatingDialog({required this.homeItemId});
+  const RatingDialog({
+    super.key,
+    required this.homeItemId,
+  });
 
   @override
-  _RatingDialogState createState() => _RatingDialogState();
+  State<RatingDialog> createState() => _RatingDialogState();
 }
 
 class _RatingDialogState extends State<RatingDialog> {
@@ -36,28 +38,37 @@ class _RatingDialogState extends State<RatingDialog> {
         ],
       ),
       content: _isLoading
-          ? const Center(child: CircularProgressIndicator(color: ColorManager.offwhite))
+          ? const Center(
+              child: CircularProgressIndicator(color: ColorManager.offwhite),
+            )
           : Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(5, (index) {
-              return IconButton(
-                onPressed: () {
-                  setState(() {
-                    _rating = index + 1;
-                  });
-                },
-                icon: Icon(
-                  index < _rating ? Icons.star : Icons.star_border,
-                  color: index < _rating ? Colors.orange : null,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      5,
+                      (index) {
+                        return IconButton(
+                          onPressed: () {
+                            setState(
+                              () {
+                                _rating = index + 1;
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            index < _rating ? Icons.star : Icons.star_border,
+                            color: index < _rating ? Colors.orange : null,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ),
-              );
-            }),
-          ),
-        ],
-      ),
+              ],
+            ),
       actions: [
         SizedBox(
           width: MediaQuery.of(context).size.width * .8,
@@ -90,7 +101,10 @@ class _RatingDialogState extends State<RatingDialog> {
         if (!userRatingDoc.exists) {
           await userRatingRef.set({'rating': _rating});
 
-          await FirebaseFirestore.instance.collection('Homes').doc(widget.homeItemId).update({
+          await FirebaseFirestore.instance
+              .collection('Homes')
+              .doc(widget.homeItemId)
+              .update({
             'rating': FieldValue.increment(_rating),
             'numberOfRatings': FieldValue.increment(1),
           });

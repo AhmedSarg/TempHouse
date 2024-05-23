@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../common/validators/validators.dart';
 import '../../../common/widget/main_button.dart';
@@ -9,7 +7,6 @@ import '../../../common/widget/main_text_field.dart';
 import '../../../common/widget/register_field_dialog.dart';
 import '../../../common/widget/social_container.dart';
 import '../../../resources/assets_manager.dart';
-import '../../../resources/routes_manager.dart';
 import '../../../resources/strings_manager.dart';
 import '../../../resources/text_styles.dart';
 import '../../../resources/values_manager.dart';
@@ -63,7 +60,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getUsernameController,
                 focusNode: usernameFocusNode,
                 nextFocus: emailFocusNode,
@@ -78,7 +74,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getEmailController,
                 focusNode: emailFocusNode,
                 nextFocus: passwordFocusNode,
@@ -93,7 +88,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getPasswordController,
                 focusNode: passwordFocusNode,
                 nextFocus: phoneNumberFocusNode,
@@ -109,7 +103,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getPhoneNumberController,
                 focusNode: phoneNumberFocusNode,
                 nextFocus: genderFocusNode,
@@ -124,7 +117,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getGenderController,
                 focusNode: genderFocusNode,
                 nextFocus: jobFocusNode,
@@ -150,7 +142,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getJobController,
                 focusNode: jobFocusNode,
                 nextFocus: salaryFocusNode,
@@ -165,7 +156,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getSalaryController,
                 focusNode: salaryFocusNode,
                 nextFocus: ageFocusNode,
@@ -180,7 +170,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getAgeController,
                 focusNode: ageFocusNode,
                 nextFocus: martialStatusFocusNode,
@@ -195,7 +184,6 @@ class RegisterTenantBody extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
               child: MainTextField(
                 maxLines: 1,
-
                 controller: viewModel.getMartialStatusController,
                 focusNode: martialStatusFocusNode,
                 label: AppStrings.registerScreenMartialStatusLabel.tr(),
@@ -223,22 +211,7 @@ class RegisterTenantBody extends StatelessWidget {
                 textStyle: AppTextStyles.authButtonTextStyle(context),
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    // Call function to add user to Firestore
-                    addUserToFirestore(
-                      viewModel.getUsernameController.text,
-                      viewModel.getEmailController.text,
-                      viewModel.getPhoneNumberController.text,
-                      viewModel.getGenderController.text,
-                      viewModel.getJobController.text,
-                      double.parse(viewModel.getSalaryController.text),
-                      int.parse(viewModel.getAgeController.text),
-                      viewModel.getMartialStatusController.text,
-                    );
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Routes.mainLayoutRoute,
-                      ModalRoute.withName('/'),
-                    );
+                    viewModel.register();
                   }
                 },
               ),
@@ -262,26 +235,4 @@ class RegisterTenantBody extends StatelessWidget {
       ),
     );
   }
-  Future<void> addUserToFirestore(String username, String email, String phoneNumber, String gender, String job, double salary, int age, String martialStatus) async {
-    try {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      CollectionReference users = firestore.collection('users');
-
-      String uid = const Uuid().v4();
-
-      await users.doc(uid).set({
-        'uid':uid,
-        'username': username,
-        'email': email,
-        'phoneNumber': phoneNumber,
-        'gender': gender,
-        'job': job,
-        'salary': salary,
-        'age': age,
-        'martialStatus': martialStatus,
-        'userType': 'tenant',
-      });
-    } catch (e) {
-      print('Error adding user to Firestore: $e');
-    }
-  }}
+}

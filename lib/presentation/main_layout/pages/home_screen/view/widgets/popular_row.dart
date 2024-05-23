@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:temp_house/presentation/resources/color_manager.dart';
 import 'package:temp_house/presentation/resources/values_manager.dart';
 
 import '../../../../../resources/text_styles.dart';
@@ -9,14 +8,16 @@ class PopularRow extends StatelessWidget {
       {super.key,
       required this.startedText,
       required this.endedText,
-        required this.routeName,
+      required this.routeName,
       required this.rowStartedcolor,
       required this.rowEndedcolor});
+
   String startedText;
   String endedText;
   String routeName;
   final Color rowStartedcolor;
   final Color rowEndedcolor;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,7 +27,7 @@ class PopularRow extends StatelessWidget {
         children: [
           Text(
             startedText ?? "",
-            style: AppTextStyles.PopularRowStartedTextStyle(
+            style: AppTextStyles.popularRowStartedTextStyle(
                 context, rowStartedcolor),
           ),
           InkWell(
@@ -35,7 +36,7 @@ class PopularRow extends StatelessWidget {
             },
             child: Text(
               endedText ?? "",
-              style: AppTextStyles.PopularRowEndedTextStyle(
+              style: AppTextStyles.popularRowEndedTextStyle(
                   context, rowEndedcolor),
             ),
           ),

@@ -8,6 +8,9 @@ class ImageAssets {
   static const String call = "${imagePath}call.gif";
   static const String map = "${imagePath}mapscreen.png";
   static const String pin = "${imagePath}Pin_duotone_line.png";
+  static const String unknownUserImage = "${imagePath}unknown_user.jpg";
+  static const String appLogo = "${imagePath}app_logo.png";
+  static const String appImage = "${imagePath}app_image.png";
 }
 
 class IconsAssets {
@@ -22,6 +25,7 @@ class SVGAssets {
 
   static const String _basePath = "assets/svg/";
 
+  static const String appLogo = "${_basePath}app_logo.svg";
   static const String facebook = "${_basePath}Ellipse 58.svg";
   static const String gmail = "${_basePath}Ellipse 197.svg";
   static const String bell = "${_basePath}Bell_pin.svg";
@@ -33,12 +37,14 @@ class SVGAssets {
   static const String googleMaps = "${_basePath}Group 98.svg";
   static const String markAsRead = "${_basePath}Done_round.svg";
   static const String delete = "${_basePath}Trash.svg";
-  static const String feedBack = "${_basePath}fluent_person-feedback-20-regular.svg";
+  static const String feedBack =
+      "${_basePath}fluent_person-feedback-20-regular.svg";
   static const String favouraiteFill = "${_basePath}Favorite_fill.svg";
   static const String favouraiteLight = "${_basePath}Favorite_light.svg";
   static const String location = "${_basePath}COMPAS.svg";
   static const String card = "${_basePath}solar_card-bold.svg";
   static const String noMessage = "${_basePath}fi-sr-envelope-ban.svg";
+  static const String mapHome = "${_basePath}map_home_icon.svg";
 }
 
 class LottieAssets {
@@ -51,4 +57,5 @@ class LottieAssets {
   static const String error = "${_basePath}error.json";
   static const String call = "${_basePath}viber.json";
   static const String underConstruction = "${_basePath}under_construction.json";
+  static const String noContent = "${_basePath}no_content.json";
 }

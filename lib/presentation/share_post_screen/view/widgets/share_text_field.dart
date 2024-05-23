@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,9 +6,9 @@ import '../../../resources/text_styles.dart';
 import '../../../resources/values_manager.dart';
 
 class SearchTextField extends StatefulWidget {
-   SearchTextField({
+  const SearchTextField({
     super.key,
-     this.controller,
+    this.controller,
     required this.focusNode,
     required this.nextFocus,
     this.label,
@@ -24,7 +23,12 @@ class SearchTextField extends StatefulWidget {
     this.readOnly = false,
     this.validation,
     this.onTap,
-    this.surffixIcon, this.surffixIconFunc,  this.initialValue,this.inputFormatters, this.minLines, this.maxLines
+    this.surffixIcon,
+    this.surffixIconFunc,
+    this.initialValue,
+    this.inputFormatters,
+    this.minLines,
+    this.maxLines,
   });
 
   final TextEditingController? controller;
@@ -33,14 +37,16 @@ class SearchTextField extends StatefulWidget {
   final bool isObscured;
   final String? label;
   final String hint;
-   final int? minLines ;
-   final int? maxLines ;
+  final int? minLines;
+
+  final int? maxLines;
+
   final String? initialValue;
   final TextInputType textInputType;
   final IconData? prefixIcon;
   final IconData? surffixIcon;
   final void Function()? surffixIconFunc;
-  List<TextInputFormatter>? inputFormatters;
+  final List<TextInputFormatter>? inputFormatters;
   final Color? backgroundColor;
   final TextStyle? hintTextStyle;
   final TextStyle? labelTextStyle;
@@ -48,6 +54,7 @@ class SearchTextField extends StatefulWidget {
   final bool readOnly;
   final String? Function(String?)? validation;
   final void Function()? onTap;
+
   @override
   State<SearchTextField> createState() => _MainTextFieldState();
 }
@@ -64,7 +71,7 @@ class _MainTextFieldState extends State<SearchTextField> {
         TextFormField(
           maxLines: widget.maxLines,
           minLines: widget.minLines,
-initialValue: widget.initialValue,
+          initialValue: widget.initialValue,
           inputFormatters: widget.inputFormatters,
           controller: widget.controller,
           focusNode: widget.focusNode,
@@ -74,7 +81,6 @@ initialValue: widget.initialValue,
           obscureText: hidden,
           keyboardType: widget.textInputType,
           obscuringCharacter: '*',
-
           cursorColor: widget.cursorColor,
           onTap: widget.onTap,
           onEditingComplete: () {
@@ -101,11 +107,14 @@ initialValue: widget.initialValue,
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.all(AppPadding.p12),
             hintText: widget.hint,
-             prefixIcon: IconButton(onPressed: widget.surffixIconFunc ,icon: Icon(
-               widget.prefixIcon,
-               color: Colors.white,
-               size: 30,
-             ),),
+            prefixIcon: IconButton(
+              onPressed: widget.surffixIconFunc,
+              icon: Icon(
+                widget.prefixIcon,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
             suffixIcon: Icon(
               widget.surffixIcon,
               color: Colors.white,

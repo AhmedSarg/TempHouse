@@ -1,11 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:temp_house/presentation/resources/font_manager.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/search_home_item.dart';
 
+import '../../../../domain/models/domain.dart';
+import '../../../common/widget/empty_list.dart';
 import '../../../common/widget/main_circle_processIndicator.dart';
-import '../../../main_layout/pages/home_details/home_Details.dart';
-import '../../../main_layout/pages/home_screen/view/widgets/near_by_home_item.dart';
+import '../../../main_layout/pages/home_details/home_details.dart';
+import '../../../resources/assets_manager.dart';
 import '../../../resources/color_manager.dart';
+import '../../../resources/strings_manager.dart';
+import '../../../resources/text_styles.dart';
 
 class CheapestSearch extends StatelessWidget {
   const CheapestSearch({Key? key});
@@ -13,7 +19,10 @@ class CheapestSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('Homes').orderBy('price').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('Homes')
+          .orderBy('price')
+          .snapshots(),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MainCicleProcessIndicator();
@@ -22,12 +31,18 @@ class CheapestSearch extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (snapshot.data == null || snapshot.data!.docs.isEmpty) {
-          return const Text('No data available');
+          return Center(
+              child: EmptyListItem(
+            content: AppStrings.emptyData.tr(),
+            image: SVGAssets.delete,
+            style: AppTextStyles.homeGeneralTextStyle(
+                context, ColorManager.offwhite, FontSize.f22),
+          ));
         }
 
         final items = snapshot.data!.docs.map((DocumentSnapshot document) {
           final Map<String, dynamic> data =
-          document.data()! as Map<String, dynamic>;
+              document.data()! as Map<String, dynamic>;
           List<dynamic> images = data['images'] ?? [];
           String firstImage = images.isNotEmpty ? images[0] : '';
 
@@ -37,40 +52,13 @@ class CheapestSearch extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => HomeDetailsScreen(
-                    id: document.id,
-                    imageUrls: images.cast<String>(),
-                    title: data['title'],
-                    price: data['price'],
-                    area: data['area'],
-                    numnerofBeds: data['number_of_beds'].toString(),
-                    wifiServices: data['wifi'] == true ? 'Yes' : 'No',
-                    numnerofbathroom: data['number_of_bathrooms'].toString(),
-                    date: data['category'],
-                    description: data['description'],
-                    location: data['location'],
-                    period: data['category'],
-                    name: data['name'],
-                    coardinaties: data['coordinates'],                    rating: data['rating']??0,
-                    numberOfRatings:data['numberOfRatings']??0,
-
+                    home: HomeModel.fromMap(data),
                   ),
                 ),
               );
             },
             child: SearchHomeItem(
-              color: ColorManager.offwhite,
-              title: data['title'],
-              price: data['price'],
-              location: data['location'],
-              imageUrl: firstImage,
-              numnerofBeds: data['number_of_beds'].toString(),
-              wifiServices: data['wifi'] == true ? 'Yes' : 'No',
-              numnerofbathroom: data['number_of_bathrooms'].toString(),
-              date: data['category'],
-              id: data['uuid'],
-              description: data['description'],
-              coardinaties: data['coordinates'], rating: data['rating']??0,
-              numberOfRatings:data['numberOfRatings']??0,
+              home: HomeModel.fromMap(data),
             ),
           );
         }).toList();

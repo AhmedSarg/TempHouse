@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../common/validators/validators.dart';
 import '../../../common/widget/main_button.dart';
@@ -9,7 +7,6 @@ import '../../../common/widget/main_text_field.dart';
 import '../../../common/widget/register_field_dialog.dart';
 import '../../../common/widget/social_container.dart';
 import '../../../resources/assets_manager.dart';
-import '../../../resources/routes_manager.dart';
 import '../../../resources/strings_manager.dart';
 import '../../../resources/text_styles.dart';
 import '../../../resources/values_manager.dart';
@@ -152,52 +149,16 @@ class RegisterOwnerBody extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
-              child: MainTextField(
-                maxLines: 1,
-                controller: viewModel.getMartialStatusController,
-                focusNode: martialStatusFocusNode,
-                label: AppStrings.registerScreenMartialStatusLabel.tr(),
-                isObscured: false,
-                readOnly: true,
-                validation: AppValidators.validateMartialStatus,
-                hint: AppStrings.registerScreenMartialStatusHint.tr(),
-                textInputType: TextInputType.text,
-                onTap: () {
-                  showRegisterDialog(
-                    context,
-                    onSelect: (v) {
-                      viewModel.getMartialStatusController.text = v;
-                    },
-                    title: AppStrings.registerScreenMartialStatusLabel.tr(),
-                    items: martialStatusList,
-                  );
-                },
-              ),
-            ),
-            Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p30),
               child: MainButton(
-                  text: AppStrings.registerScreenButton.tr(),
-                  textStyle: AppTextStyles.authButtonTextStyle(context),
-                  onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      addUserToFirestore(
-                        viewModel.getUsernameController.text,
-                        viewModel.getEmailController.text,
-                        viewModel.getPhoneNumberController.text,
-                        viewModel.getGenderController.text,
-                        int.parse(viewModel.getAgeController.text),
-                        viewModel.getMartialStatusController.text,
-                      );
-                      // Navigate to main layout
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        Routes.mainLayoutRoute,
-                        ModalRoute.withName('/'),
-                      );
-                    }
-                  }),
+                text: AppStrings.registerScreenButton.tr(),
+                textStyle: AppTextStyles.authButtonTextStyle(context),
+                onTap: () {
+                  if (_formKey.currentState!.validate()) {
+                    viewModel.register();
+                  }
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: AppPadding.p10),
@@ -217,33 +178,5 @@ class RegisterOwnerBody extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> addUserToFirestore(
-      String username,
-      String email,
-      String phoneNumber,
-      String gender,
-      int age,
-      String martialStatus) async {
-    try {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      CollectionReference users = firestore.collection('users');
-
-      String uid = const Uuid().v4();
-
-      await users.doc(uid).set({
-        'uid': uid,
-        'username': username,
-        'email': email,
-        'phoneNumber': phoneNumber,
-        'gender': gender,
-        'age': age,
-        'martialStatus': martialStatus,
-        'userType': 'owner',
-      });
-    } catch (e) {
-      print('Error adding user to Firestore: $e');
-    }
   }
 }

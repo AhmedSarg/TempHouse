@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../data/network/failure.dart';
 import '../repository/repository.dart';
@@ -29,7 +28,6 @@ class SharePostUseCase extends BaseUseCase<SharePostUseCaseInput, void> {
       location: input.location,
       images: input.images,
       coordinates: input.coordinates,
-
     );
   }
 }
@@ -49,7 +47,7 @@ class SharePostUseCaseInput {
   final List<File> images;
   final GeoPoint coordinates;
 
-  SharePostUseCaseInput(    {
+  SharePostUseCaseInput({
     required this.name,
     required this.title,
     required this.price,

@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:temp_house/presentation/common/data_intent/data_intent.dart';
 
-import '../../../app/constants.dart';
-
 class ChatServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -23,11 +21,23 @@ class ChatServices {
   //   });
   // }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getUserStreamOrdered() {
+  Stream<List<Map<String, dynamic>>> getUserStreamOrdered() {
     return _firestore
         .collection("chat_rooms")
-        .where('participants_names', arrayContains: DataIntent.getUser().name)
-        .snapshots();
+        .where(
+          'participants_names',
+          arrayContains: DataIntent.getUser().username,
+        )
+        .snapshots()
+        .map(
+          (chats) => chats.docs.map(
+            (chat) {
+              Map<String, dynamic> ret = chat.data();
+              ret['id'] = chat.id;
+              return ret;
+            },
+          ).toList(),
+        );
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getChatMessages(String id) {
@@ -48,11 +58,11 @@ class ChatServices {
   }
 
   Future<void> sendMessage(
-      String chatRoomID,
-      String content,
-      String type,
-      Timestamp timestamp,
-      ) async {
+    String chatRoomID,
+    String content,
+    String type,
+    Timestamp timestamp,
+  ) async {
     Map<String, dynamic> messageData = {
       'senderID': DataIntent.getUser().uid,
       'content': content,
@@ -60,30 +70,39 @@ class ChatServices {
       'type': type,
       'seen': false,
     };
-
-    await _firestore
-        .collection("chat_rooms")
-        .doc(chatRoomID)
-        .collection('messages')
-        .add(messageData);
+    DocumentReference chatRoomRef =
+        _firestore.collection("chat_rooms").doc(chatRoomID);
+    bool exists = await chatRoomRef.get().then(
+      (chatRoom) {
+        return chatRoom.data() != null;
+      },
+    );
+    if (!exists) {
+      List<String> ids = chatRoomID.split('_');
+      List<String> names = [];
+      print(ids);
+      await _firestore.collection('users').doc(ids[0]).get().then((value) {
+        names.add(value.data()!['username']);
+      });
+      await _firestore.collection('users').doc(ids[1]).get().then((value) {
+        names.add(value.data()!['username']);
+      });
+      await chatRoomRef.set(
+        {
+          'participants_names': names,
+          'participants_ids': ids,
+        },
+      );
+    }
+    await chatRoomRef.collection('messages').add(messageData);
+    await chatRoomRef.update({
+      'last_message': content.contains(
+              'https://firebasestorage.googleapis.com/v0/b/temp-house.appspot.com/o/')
+          ? 'Photo Message'
+          : content,
+      'last_message_date': DateTime.now(),
+    });
   }
-
-
-  // Stream<QuerySnapshot> getMessages(String chatID) {
-  //   return _firestore
-  //       .collection("chat_rooms")
-  //       .doc(chatID)
-  //       .collection('messages')
-  //       .orderBy('timestamp', descending: false)
-  //       .snapshots()
-  //       .map((snapshot) {
-  //     snapshot.docs.forEach((doc) {
-  //         doc.reference.update({'seen': true});
-  //
-  //     });
-  //     return snapshot;
-  //   });
-  // }
 
   String getChatRoomID(String currentUserID, String otherUserID) {
     List<String> ids = [currentUserID, otherUserID];

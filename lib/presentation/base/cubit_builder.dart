@@ -21,8 +21,8 @@ Widget baseBuilder(BuildContext context, BaseStates state, Widget content) {
     ]);
   } else if (state is ErrorState) {
     return BaseWidgets.buildItemsColumn([
-      BaseWidgets.buildAnimatedImage(LottieAssets.error),
-      BaseWidgets.buildMessage(context, state.failure.message),
+      BaseWidgets.buildAnimatedImage(LottieAssets.error, false),
+      BaseWidgets.buildMessage(context, state.failure.message, state.textColor),
       BaseWidgets.buildButton(
           displayType: state.displayType,
           context: context,

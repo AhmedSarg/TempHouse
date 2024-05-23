@@ -1,11 +1,13 @@
+import 'package:flutter/material.dart';
+
 import '../../data/network/failure.dart';
 
 enum DisplayType { fullScreen, popUpDialog }
 
 abstract class BaseStates {
   final DisplayType displayType;
-
-  BaseStates({this.displayType = DisplayType.fullScreen});
+  Color? textColor;
+  BaseStates({this.displayType = DisplayType.fullScreen, this.textColor});
 }
 
 class InitState extends BaseStates {}
@@ -18,7 +20,12 @@ class ErrorState extends BaseStates {
   final Failure failure;
   final void Function()? retry;
 
-  ErrorState({super.displayType, this.retry, required this.failure});
+  ErrorState({
+    super.displayType,
+    this.retry,
+    required this.failure,
+    super.textColor,
+  });
 }
 
 class ContentState extends BaseStates {}
@@ -31,7 +38,6 @@ class EmptyState extends BaseStates {
 
 class IntentEmptyState extends BaseStates {
   IntentEmptyState();
-
 }
 
 class ConfirmState extends BaseStates {

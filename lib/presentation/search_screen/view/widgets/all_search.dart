@@ -2,23 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:temp_house/domain/models/domain.dart';
 import 'package:temp_house/presentation/search_screen/view/widgets/search_home_item.dart';
 
 import '../../../common/widget/main_circle_processIndicator.dart';
 import '../../../common/widget/main_seach_field.dart';
-import '../../../main_layout/pages/home_details/home_Details.dart';
-import '../../../main_layout/pages/home_screen/view/widgets/near_by_home_item.dart';
+import '../../../main_layout/pages/home_details/home_details.dart';
 import '../../../resources/assets_manager.dart';
-import '../../../resources/color_manager.dart';
-import '../../../resources/routes_manager.dart';
 import '../../../resources/strings_manager.dart';
-import '../../../resources/values_manager.dart';
 
 class AllSearch extends StatefulWidget {
   const AllSearch({Key? key}) : super(key: key);
 
   @override
-  _AllSearchState createState() => _AllSearchState();
+  State<AllSearch> createState() => _AllSearchState();
 }
 
 class _AllSearchState extends State<AllSearch> {
@@ -33,41 +30,39 @@ class _AllSearchState extends State<AllSearch> {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width*.9,
+          width: MediaQuery.of(context).size.width * .9,
           child: MainSearch(
             controller: _searchController,
             hintText: AppStrings.searchTextHint.tr(),
             leadingIcon: Icons.search,
-            trailingIcon:Padding(
-              padding: const EdgeInsets.all(  AppPadding.p8),
-              child: SvgPicture.asset(
-                SVGAssets.googleMaps,
-                width: AppSize.s20,
-                height: AppSize.s20,
-              ),
-            ),
+            trailingIcon: SvgPicture.asset(SVGAssets.googleMaps),
             onChanged: (value) {
-              setState(() {
-                if (value.isEmpty) {
-                  _searchStream = FirebaseFirestore.instance.collection('Homes').snapshots();
-                } else {
-                  _searchStream = FirebaseFirestore.instance.collection('Homes')
-
-                      .where('description', isGreaterThanOrEqualTo: value.toLowerCase())
-                      .snapshots();
-                }
-              });
+              setState(
+                () {
+                  if (value.isEmpty) {
+                    _searchStream = FirebaseFirestore.instance
+                        .collection('Homes')
+                        .snapshots();
+                  } else {
+                    _searchStream = FirebaseFirestore.instance
+                        .collection('Homes')
+                        .where('description',
+                            isGreaterThanOrEqualTo: value.toLowerCase())
+                        .snapshots();
+                  }
+                },
+              );
             },
           ),
         ),
         Expanded(
           child: StreamBuilder<QuerySnapshot>(
             stream: _searchStream,
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const MainCicleProcessIndicator();
               }
@@ -77,54 +72,25 @@ class _AllSearchState extends State<AllSearch> {
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                 return Container(); // Return an empty container if no data or no search results
               }
-
-              final items = snapshot.data!.docs.map((DocumentSnapshot document) {
+              final items =
+                  snapshot.data!.docs.map((DocumentSnapshot document) {
                 final Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
+                    document.data()! as Map<String, dynamic>;
                 List<dynamic> images = data['images'] ?? [];
                 String firstImage = images.isNotEmpty ? images[0] : '';
-
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => HomeDetailsScreen(
-                          id: document.id,
-                          imageUrls: images.cast<String>(),
-                          title: data['title'],
-                          price: data['price'],
-                          area: data['area'],
-                          numnerofBeds: data['number_of_beds'].toString(),
-                          wifiServices: data['wifi'] == true ? 'Yes' : 'No',
-                          numnerofbathroom: data['number_of_bathrooms'].toString(),
-                          date: data['category'],
-                          description: data['description'],
-                          location: data['location'],
-                          period: data['category'],
-                          name: data['name'],
-                          numberOfRatings:data['numberOfRatings']??0,
-                          coardinaties: data['coordinates'],                    rating: data['rating']??0,
-
+                          home: HomeModel.fromMap(data),
                         ),
                       ),
                     );
                   },
                   child: SearchHomeItem(
-                    color: ColorManager.offwhite,
-                    title: data['title'],
-                    price: data['price'],
-                    location: data['location'],
-                    imageUrl: firstImage,
-                    numnerofBeds: data['number_of_beds'].toString(),
-                    wifiServices: data['wifi'] == true ? 'Yes' : 'No',
-                    numnerofbathroom: data['number_of_bathrooms'].toString(),
-                    date: data['category'],
-                    id: data['uuid'],
-                    description: data['description'],
-                    coardinaties: data['coordinates'],
-                    rating: data['rating']??0,
-                    numberOfRatings:data['numberOfRatings']??0,
+                    home: HomeModel.fromMap(data),
                   ),
                 );
               }).toList();

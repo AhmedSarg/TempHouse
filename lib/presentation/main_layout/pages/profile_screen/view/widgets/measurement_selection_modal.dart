@@ -14,32 +14,38 @@ class MeasurementSelectionModal {
     );
   }
 
-  Widget _buildMeasurementSelectionModal(BuildContext context, Function(String) onSelect) {
+  Widget _buildMeasurementSelectionModal(
+      BuildContext context, Function(String) onSelect) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppPadding.p22),
+      padding: const EdgeInsets.all(AppPadding.p22),
       height: MediaQuery.of(context).size.height * 0.35,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Center(
-            child: Container(height: AppSize.s4,width: AppPadding.p40,
+            child: Container(
+              height: AppSize.s4,
+              width: AppPadding.p40,
               decoration: BoxDecoration(
                   color: ColorManager.grey,
-                  borderRadius: BorderRadius.circular(AppSize.s20)
-              ),
+                  borderRadius: BorderRadius.circular(AppSize.s20)),
             ),
           ),
-          SizedBox(height: AppSize.s20,),
-          Text('Measurement System',style: AppTextStyles.profileSettingTextStyle()),
+          SizedBox(
+            height: AppSize.s20,
+          ),
+          Text('Measurement System',
+              style: AppTextStyles.profileSettingTextStyle(context)),
           GestureDetector(
             onTap: () {
               onSelect('Metric (m^2 , Km)');
               Navigator.pop(context);
             },
-            child:  Padding(
-              padding: const EdgeInsets.symmetric(vertical:  AppPadding.p22),
-              child: Text('Metric (m^2 , Km)',style: AppTextStyles.profileSettingInfoTextStyle()),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p22),
+              child: Text('Metric (m^2 , Km)',
+                  style: AppTextStyles.profileSettingInfoTextStyle(context)),
             ),
           ),
           GestureDetector(
@@ -47,9 +53,10 @@ class MeasurementSelectionModal {
               onSelect('Imperial (Ft^2 , mi)');
               Navigator.pop(context);
             },
-            child:  Padding(
-              padding: const EdgeInsets.symmetric(vertical:  AppPadding.p22),
-              child: Text('Imperial (Ft^2 , mi)',style: AppTextStyles.profileSettingInfoTextStyle()),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppPadding.p22),
+              child: Text('Imperial (Ft^2 , mi)',
+                  style: AppTextStyles.profileSettingInfoTextStyle(context)),
             ),
           ),
         ],

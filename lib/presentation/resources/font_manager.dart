@@ -4,7 +4,7 @@ class FontConstants {
   static const String primaryEnglishFont = "Kreon";
   static const String secondaryEnglishFont = "Kurale";
   static const String primaryArabicFont = "Harmattan";
-  static const String secondaryArabicFont = "Rakkas";
+  static const String secondaryArabicFont = "NotoSansArabic";
 }
 
 class FontWeightManager {

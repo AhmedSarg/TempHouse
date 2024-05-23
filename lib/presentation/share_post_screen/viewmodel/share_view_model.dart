@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:temp_house/domain/usecase/share_post_usecase.dart';
 import 'package:temp_house/presentation/base/base_states.dart';
 import 'package:temp_house/presentation/common/data_intent/data_intent.dart';
@@ -83,7 +82,6 @@ class ShareViewModel extends BaseCubit
     _coordinates = coordinates;
   }
 
-
   @override
   set setCityName(String cityName) {
     _cityName = cityName;
@@ -101,7 +99,6 @@ class ShareViewModel extends BaseCubit
     emit(LoadingState(displayType: DisplayType.popUpDialog));
     await _sharePostUseCase(
       SharePostUseCaseInput(
-
         title: _titleController.text.trim().toLowerCase(),
         price: num.parse(_priceController.text.trim()),
         category: _categoryController.text.trim(),
@@ -113,15 +110,16 @@ class ShareViewModel extends BaseCubit
         condition: _conditionController.text.trim().toLowerCase(),
         images: _images,
         coordinates: _coordinates,
-        area: num.parse(_areaController.text.trim()), name: DataIntent.getUser().name,
+        area: num.parse(_areaController.text.trim()),
+        name: DataIntent.getUser().username,
       ),
     ).then(
-          (value) {
+      (value) {
         value.fold(
-              (l) {
+          (l) {
             emit(ErrorState(failure: l, displayType: DisplayType.popUpDialog));
           },
-              (r) {
+          (r) {
             emit(SuccessState('Home Posted Successfully'));
           },
         );
