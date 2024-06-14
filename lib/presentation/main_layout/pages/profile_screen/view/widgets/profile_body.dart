@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:temp_house/data/data_source/cache_data_source.dart';
+import 'package:temp_house/data/network/error_handler.dart';
 import 'package:temp_house/presentation/main_layout/pages/profile_screen/view/widgets/profile_image.dart';
 import 'package:temp_house/presentation/resources/color_manager.dart';
 import 'package:temp_house/presentation/resources/routes_manager.dart';
@@ -24,6 +27,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   String selectedLanguage = 'English';
   String selectedMeasurement = 'Metric (m^2 , Km)';
   String selectedCountry = 'Egypt';
+  CacheDataSource? _cacheDataSource;
 
   @override
   void initState() {
@@ -148,7 +152,11 @@ class _ProfileBodyState extends State<ProfileBody> {
             ),
             AppSettingItem(
               text: AppStrings.logOut.tr(),
-              onTap: () {},
+              onTap: () {
+                _cacheDataSource!.logout().then((value) {
+                  Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                });
+              },
             ),
           ],
         ),

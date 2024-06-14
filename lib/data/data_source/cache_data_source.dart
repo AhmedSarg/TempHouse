@@ -8,7 +8,9 @@ abstract class CacheDataSource {
 class CacheDataSourceImpl implements CacheDataSource {
   final FirebaseAuth? _firebaseAuth;
 
-  CacheDataSourceImpl(this._firebaseAuth);
+  CacheDataSourceImpl(
+    this._firebaseAuth
+    );
 
   @override
   User? getSignedUser() {
